@@ -41,6 +41,45 @@ cmake .
 
 directly, you don't have to configure anything else (I guess)
 
+### Configuration of Visual Studio Code
+
+modify your `c_cpp_properties.json`. You have to configure C/C++ extension properly to make IntelliSense work correctly.
+
+```jsonc
+{
+    "configurations": [
+        {
+            "name": "STM32F10X", // Just name it
+            "includePath": [
+                "${workspaceFolder}/**", // include all the files in workspace
+                // This is where you install your GNU Arm Embedded Toolchain. 
+                "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\9 2020-q2-update\\arm-none-eabi\\include\\**"  
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "STM32F10X_HD", // This is additional defines
+                "USE_STDPERIPH_DRIVER" // This is additional defines
+            ],
+            // You MUST set your compilerPath to GNU Arm Embedded Toolchain or it will complain
+            "compilerPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\9 2020-q2-update\\bin\\arm-none-eabi-gcc.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "${default}", // I have no idea what this means so just default
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools" // I have no idea what this means. Maybe it's about cmake
+        }
+    ],
+    "version": 4
+}
+```
+
+See [µVision User's Guide Preprocessor Symbols](https://www.keil.com/support/man/docs/uv4/uv4_dg_adscc.htm)
+### Use Keil as Command Line Tools
+
+See [µVision User's Guide: Command Line](https://www.keil.com/support/man/docs/uv4/uv4_commandline.htm). Also check this gist: [Makefile for building keil projects](https://gist.github.com/samvasko/10017340).
+
 ## Useful Links
 
 ### CMake
