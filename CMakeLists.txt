@@ -10,11 +10,11 @@ set(linker "STM32F10X.ld")
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
 # CMake can't identify if the OS is WIN32 or UNIX in MSYS Makefiles
-# if(UNIX)
-#   set(CROSS_TARGET_TRIPLET "arm-none-eabi-")
-#   set(CMAKE_C_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
-#   set(CMAKE_ASM_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
-# endif(UNIX)
+if(UNIX)
+  set(CROSS_TARGET_TRIPLET "arm-none-eabi-")
+  set(CMAKE_C_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
+  set(CMAKE_ASM_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
+endif(UNIX)
 
 # if you're in Windows please use MSYS Makefiles Generator
 # cmake . -G "MSYS Makefiles"
@@ -44,9 +44,9 @@ set (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
 # STDLIB
 set (CMAKE_SHARED_LIBRARY_LINK_C_FLAGS)
+# include_directories (${tools_include})
 
 # Set include path
-include_directories (${tools_include})
 include_directories (User)
 include_directories (Libraries/CMSIS)
 include_directories (Libraries/STM32F10x_StdPeriph_Driver/inc)
