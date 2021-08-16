@@ -5,27 +5,27 @@
 #include "system.h"
 
 
-//Ê±¼ä½á¹¹Ìå
+//æ—¶é—´ç»“æ„ä½“
 typedef struct 
 {
 	u8 hour;
 	u8 min;
 	u8 sec;	
 	
-	//¹«ÀúÈÕÔÂÄêÖÜ
+	//å…¬å†æ—¥æœˆå¹´å‘¨
 	u16 w_year;
 	u8  w_month;
 	u8  w_date;
 	u8  week;		 
 }_calendar;					 
-extern _calendar calendar;	//ÈÕÀú½á¹¹Ìå
+extern _calendar calendar;	//æ—¥å†ç»“æ„ä½“
 
-u8 RTC_Init(void);        //³õÊ¼»¯RTC,·µ»Ø0,Ê§°Ü;1,³É¹¦;
-u8 Is_Leap_Year(u16 year);//Æ½Äê,ÈòÄêÅĞ¶Ï
+u8 RTC_Init(void);        //åˆå§‹åŒ–RTC,è¿”å›0,å¤±è´¥;1,æˆåŠŸ;
+u8 Is_Leap_Year(u16 year);//å¹³å¹´,é—°å¹´åˆ¤æ–­
 u8 RTC_Alarm_Set(u16 syear,u8 smon,u8 sday,u8 hour,u8 min,u8 sec);
-u8 RTC_Get(void);         //¸üĞÂÊ±¼ä   
+u8 RTC_Get(void);         //æ›´æ–°æ—¶é—´   
 u8 RTC_Get_Week(u16 year,u8 month,u8 day);
-u8 RTC_Set(u16 syear,u8 smon,u8 sday,u8 hour,u8 min,u8 sec);//ÉèÖÃÊ±¼ä			 
+u8 RTC_Set(u16 syear,u8 smon,u8 sday,u8 hour,u8 min,u8 sec);//è®¾ç½®æ—¶é—´			 
 #endif
 
 

@@ -3,7 +3,7 @@
 
 #include "system.h"
 
-extern u16 touch_default_val;  //Î´°´ÏÂ´¥Ãş°´¼üÊ±µÄÖµ
+extern u16 touch_default_val;  //æœªæŒ‰ä¸‹è§¦æ‘¸æŒ‰é”®æ—¶çš„å€¼
 
 
 void TIM2_CH1_Input_Init(u32 arr,u16 psc);

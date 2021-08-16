@@ -2,7 +2,7 @@
 #define _tftlcd_H	
 #include "system.h"	 
 
-//¶¨ÒåLCD²ÊÆÁµÄÇı¶¯ÀàĞÍ  ¿É¸ù¾İ×Ô¼ºÊÖÉÏµÄ²ÊÆÁ±³ÃæĞÍºÅÀ´Ñ¡Ôñ´ò¿ªÄÄÖÖÇı¶¯
+//å®šä¹‰LCDå½©å±çš„é©±åŠ¨ç±»å‹  å¯æ ¹æ®è‡ªå·±æ‰‹ä¸Šçš„å½©å±èƒŒé¢å‹å·æ¥é€‰æ‹©æ‰“å¼€å“ªç§é©±åŠ¨
 //#define TFTLCD_HX8357D 
 
 //#define TFTLCD_HX8352C
@@ -30,9 +30,9 @@
 //#define TFTLCD_ILI9481
 
 
-#define TFTLCD_DIR	0	//0£ºÊúÆÁ  1£ººáÆÁ  Ä¬ÈÏÊúÆÁ
+#define TFTLCD_DIR	0	//0ï¼šç«–å±  1ï¼šæ¨ªå±  é»˜è®¤ç«–å±
 
-//TFTLCDµØÖ·½á¹¹Ìå
+//TFTLCDåœ°å€ç»“æ„ä½“
 typedef struct
 {
 	u16 LCD_CMD;
@@ -40,29 +40,29 @@ typedef struct
 }TFTLCD_TypeDef;
 
 
-//Ê¹ÓÃNOR/SRAMµÄ Bank1.sector4,µØÖ·Î»HADDR[27,26]=11 A10×÷ÎªÊı¾İÃüÁîÇø·ÖÏß 
-//×¢ÒâÉèÖÃ16Î»×ÜÏßÊ±STM32ÄÚ²¿»áÓÒÒÆÒ»Î»¶ÔÆë!			    
+//ä½¿ç”¨NOR/SRAMçš„ Bank1.sector4,åœ°å€ä½HADDR[27,26]=11 A10ä½œä¸ºæ•°æ®å‘½ä»¤åŒºåˆ†çº¿ 
+//æ³¨æ„è®¾ç½®16ä½æ€»çº¿æ—¶STM32å†…éƒ¨ä¼šå³ç§»ä¸€ä½å¯¹é½!			    
 #define TFTLCD_BASE        ((u32)(0x6C000000 | 0x000007FE))
 #define TFTLCD             ((TFTLCD_TypeDef *) TFTLCD_BASE)
   
-//TFTLCDÖØÒª²ÎÊı¼¯
+//TFTLCDé‡è¦å‚æ•°é›†
 typedef struct  
 {										    
-	u16 width;			//LCD ¿í¶È
-	u16 height;			//LCD ¸ß¶È
+	u16 width;			//LCD å®½åº¦
+	u16 height;			//LCD é«˜åº¦
 	u16 id;				//LCD ID
-	u8  dir;            //LCD ·½Ïò
+	u8  dir;            //LCD æ–¹å‘
 }_tftlcd_data;
 
 
-//LCD²ÎÊı
-extern _tftlcd_data tftlcd_data;	//¹ÜÀíLCDÖØÒª²ÎÊı
-//LCDµÄÇ°¶ËÑÕÉ«ºÍ±³¾°É«	   
-extern u16  FRONT_COLOR;//Ç°¶ËÑÕÉ« Ä¬ÈÏºìÉ«    
-extern u16  BACK_COLOR; //±³¾°ÑÕÉ«.Ä¬ÈÏÎª°×É«
+//LCDå‚æ•°
+extern _tftlcd_data tftlcd_data;	//ç®¡ç†LCDé‡è¦å‚æ•°
+//LCDçš„å‰ç«¯é¢œè‰²å’ŒèƒŒæ™¯è‰²	   
+extern u16  FRONT_COLOR;//å‰ç«¯é¢œè‰² é»˜è®¤çº¢è‰²    
+extern u16  BACK_COLOR; //èƒŒæ™¯é¢œè‰².é»˜è®¤ä¸ºç™½è‰²
 
 
-//»­±ÊÑÕÉ«
+//ç”»ç¬”é¢œè‰²
 #define WHITE         	 0xFFFF
 #define BLACK         	 0x0000	  
 #define BLUE         	 0x001F
@@ -74,9 +74,9 @@ extern u16  BACK_COLOR; //±³¾°ÑÕÉ«.Ä¬ÈÏÎª°×É«
 #define GREEN         	 0x07E0
 #define CYAN          	 0x7FFF
 #define YELLOW        	 0xFFE0
-#define BROWN 			 0XBC40 //×ØÉ«
-#define BRRED 			 0XFC07 //×ØºìÉ«
-#define GRAY  			 0X8430 //»ÒÉ«
+#define BROWN 			 0XBC40 //æ£•è‰²
+#define BRRED 			 0XFC07 //æ£•çº¢è‰²
+#define GRAY  			 0X8430 //ç°è‰²
 
 
 
@@ -85,11 +85,11 @@ void LCD_WriteData(u16 data);
 void LCD_WriteCmdData(u16 cmd,u16 data);
 void LCD_WriteData_Color(u16 color);
 
-void TFTLCD_Init(void);           //³õÊ¼»¯
+void TFTLCD_Init(void);           //åˆå§‹åŒ–
 void LCD_Set_Window(u16 sx,u16 sy,u16 width,u16 height);
-void LCD_Clear(u16 Color);	 												//ÇåÆÁ
+void LCD_Clear(u16 Color);	 												//æ¸…å±
 void LCD_Fill(u16 xState,u16 yState,u16 xEnd,u16 yEnd,u16 color);
-void LCD_DrawPoint(u16 x,u16 y);//»­µã
+void LCD_DrawPoint(u16 x,u16 y);//ç”»ç‚¹
 void LCD_DrawFRONT_COLOR(u16 x,u16 y,u16 color);
 u16 LCD_ReadPoint(u16 x,u16 y);
 void LCD_DrawLine(u16 x1, u16 y1, u16 x2, u16 y2);

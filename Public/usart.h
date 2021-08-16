@@ -7,25 +7,25 @@
 #include "stdlib.h"
 #include "string.h"
 #include "stdio.h"	
-#define USART1_REC_LEN  			200  	//¶¨ÒåUSART1×î´ó½ÓÊÕ×Ö½ÚÊı
-#define USART2_REC_LEN  			200  	//¶¨Òå×î´ó½ÓÊÕ×Ö½ÚÊı 200
+#define USART1_REC_LEN  			200  	//å®šä¹‰USART1æœ€å¤§æ¥æ”¶å­—èŠ‚æ•°
+#define USART2_REC_LEN  			200  	//å®šä¹‰æœ€å¤§æ¥æ”¶å­—èŠ‚æ•° 200
 
-#define USART_REC_LEN  			200  	//¶¨Òå×î´ó½ÓÊÕ×Ö½ÚÊı 200
-#define EN_USART1_RX 			1		//Ê¹ÄÜ£¨1£©/½ûÖ¹£¨0£©´®¿Ú1½ÓÊÕ
+#define USART_REC_LEN  			200  	//å®šä¹‰æœ€å¤§æ¥æ”¶å­—èŠ‚æ•° 200
+#define EN_USART1_RX 			1		//ä½¿èƒ½ï¼ˆ1ï¼‰/ç¦æ­¢ï¼ˆ0ï¼‰ä¸²å£1æ¥æ”¶
 	  	
-extern char  USART_RX_BUF[USART_REC_LEN]; //½ÓÊÕ»º³å,×î´óUSART_REC_LEN¸ö×Ö½Ú.Ä©×Ö½ÚÎª»»ĞĞ·û 
-extern u16 USART_RX_STA;         		//½ÓÊÕ×´Ì¬±ê¼Ç	
+extern char  USART_RX_BUF[USART_REC_LEN]; //æ¥æ”¶ç¼“å†²,æœ€å¤§USART_REC_LENä¸ªå­—èŠ‚.æœ«å­—èŠ‚ä¸ºæ¢è¡Œç¬¦ 
+extern u16 USART_RX_STA;         		//æ¥æ”¶çŠ¶æ€æ ‡è®°	
 #define false 0
 #define true 1
 
 
 #define USART3_PRINTF
 
-#define USART_REC_LEN3  			200  	//¶¨Òå×î´ó½ÓÊÕ×Ö½ÚÊı 200
+#define USART_REC_LEN3  			200  	//å®šä¹‰æœ€å¤§æ¥æ”¶å­—èŠ‚æ•° 200
 
 	  	
-extern u8  USART_RX_BUF3[USART_REC_LEN3]; //½ÓÊÕ»º³å,×î´óUSART_REC_LEN¸ö×Ö½Ú.Ä©×Ö½ÚÎª»»ĞĞ·û 
-extern u16 USART_RX_STA3;         		//½ÓÊÕ×´Ì¬±ê¼Ç	
+extern u8  USART_RX_BUF3[USART_REC_LEN3]; //æ¥æ”¶ç¼“å†²,æœ€å¤§USART_REC_LENä¸ªå­—èŠ‚.æœ«å­—èŠ‚ä¸ºæ¢è¡Œç¬¦ 
+extern u16 USART_RX_STA3;         		//æ¥æ”¶çŠ¶æ€æ ‡è®°	
 
 
 void USART3_Init(u32 bound);
@@ -47,7 +47,7 @@ extern char string[100];
 //void parseGpsBuffer(void);
 //void printGpsBuffer(void);
 
-//¶¨ÒåÊı×é³¤¶È
+//å®šä¹‰æ•°ç»„é•¿åº¦
 #define GPS_Buffer_Length 80
 #define UTCTime_Length 11
 #define latitude_Length 11
@@ -58,14 +58,14 @@ extern char string[100];
 typedef struct SaveData 
 {
 	char GPS_Buffer[GPS_Buffer_Length];
-	char isGetData;		//ÊÇ·ñ»ñÈ¡µ½GPSÊı¾İ
-	char isParseData;	//ÊÇ·ñ½âÎöÍê³É
-	char UTCTime[UTCTime_Length];		//UTCÊ±¼ä
-	char latitude[latitude_Length];		//Î³¶È
+	char isGetData;		//æ˜¯å¦è·å–åˆ°GPSæ•°æ®
+	char isParseData;	//æ˜¯å¦è§£æå®Œæˆ
+	char UTCTime[UTCTime_Length];		//UTCæ—¶é—´
+	char latitude[latitude_Length];		//çº¬åº¦
 	char N_S[N_S_Length];		//N/S
-	char longitude[longitude_Length];		//¾­¶È
+	char longitude[longitude_Length];		//ç»åº¦
 	char E_W[E_W_Length];		//E/W
-	char isUsefull;		//¶¨Î»ĞÅÏ¢ÊÇ·ñÓĞĞ§
+	char isUsefull;		//å®šä½ä¿¡æ¯æ˜¯å¦æœ‰æ•ˆ
 } _SaveData;
 
 

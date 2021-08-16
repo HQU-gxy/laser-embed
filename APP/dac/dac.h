@@ -3,7 +3,7 @@
 
 #include "system.h"
 
-void DAC1_Init(void);		//DACÍ¨µÀ1³õÊ¼»¯	 	 
+void DAC1_Init(void);		//DACé€šé“1åˆå§‹åŒ–	 	 
 
 
 #endif

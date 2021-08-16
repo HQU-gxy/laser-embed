@@ -25,7 +25,7 @@ u8 HW_jssj_low(uint16_t GPIO_Pin );
 void IR_Poll(void);
 
 u8 HW_jssj1(uint16_t GPIO_Pin);
-//定义全局变量
+//瀹氫箟鍏ㄥ眬鍙橀噺
 extern u32 hw_jsm;
 extern u8  hw_jsbz;
 extern u8 irflag;

@@ -4,4 +4,4 @@
 # and libenca
 # https://packages.ubuntu.com/focal/libdevel/libenca-dev
 
-find ./ -name "*.c" -o -name "*.cpp" -type f | xargs enca -L chinese -x utf-8
+find ./ -name "*.c" -o -name "*.cpp" -o -name "*.h" -type f | xargs enca -L chinese -x utf-8

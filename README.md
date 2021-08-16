@@ -76,9 +76,25 @@ modify your `c_cpp_properties.json`. You have to configure C/C++ extension prope
 ```
 
 See [µVision User's Guide Preprocessor Symbols](https://www.keil.com/support/man/docs/uv4/uv4_dg_adscc.htm)
+
 ### Use Keil as Command Line Tools
 
 See [µVision User's Guide: Command Line](https://www.keil.com/support/man/docs/uv4/uv4_commandline.htm). Also check this gist: [Makefile for building keil projects](https://gist.github.com/samvasko/10017340).
+
+
+### Encoding from GBK to UTF-8
+
+If you are using keil, I'm sure your file encoding is GBK. You'd better convert to UTF-8 first.
+
+```bash
+# convert all the Chinese encoding to UTF-8 for C and C++ source files
+# You have to install enca
+# https://github.com/nijel/enca
+# and libenca
+# https://packages.ubuntu.com/focal/libdevel/libenca-dev
+
+find ./ -name "*.c" -o -name "*.cpp" -o -name "*.h" -type f | xargs enca -L chinese -x utf-8
+```
 
 ## Useful Links
 

@@ -4,13 +4,13 @@
 #include "system.h"
 
 
-/*  ÊıÂë¹ÜÊ±ÖÓ¶Ë¿Ú¡¢Òı½Å¶¨Òå */
+/*  æ•°ç ç®¡æ—¶é’Ÿç«¯å£ã€å¼•è„šå®šä¹‰ */
 #define SMG_PORT 			GPIOC   
 #define SMG_PIN 			(GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7)
 #define SMG_PORT_RCC		RCC_APB2Periph_GPIOC
 
 
-void SMG_Init(void);//ÊıÂë¹Ü³õÊ¼»¯
+void SMG_Init(void);//æ•°ç ç®¡åˆå§‹åŒ–
 
 
 #endif

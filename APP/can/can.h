@@ -4,13 +4,13 @@
 #include "system.h"
 							    
 
-#define CAN_RX0_INT_ENABLE 0   //²»Ê¹ÓÃÖĞ¶Ï
+#define CAN_RX0_INT_ENABLE 0   //ä¸ä½¿ç”¨ä¸­æ–­
 
-void CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode);//CAN³õÊ¼»¯
+void CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode);//CANåˆå§‹åŒ–
  
-u8 CAN_Send_Msg(u8* msg,u8 len);						//·¢ËÍÊı¾İ
+u8 CAN_Send_Msg(u8* msg,u8 len);						//å‘é€æ•°æ®
 
-u8 CAN_Receive_Msg(u8 *buf);							//½ÓÊÕÊı¾İ
+u8 CAN_Receive_Msg(u8 *buf);							//æ¥æ”¶æ•°æ®
 
 
 #endif

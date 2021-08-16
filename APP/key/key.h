@@ -4,29 +4,29 @@
 
 #include "system.h"
  
-#define KEY_LEFT_Pin    GPIO_Pin_2    //¶¨ÒåK_LEFT¹Ü½Å
-#define KEY_DOWN_Pin    GPIO_Pin_3    //¶¨ÒåK_DOWN¹Ü½Å
-#define KEY_RIGHT_Pin   GPIO_Pin_4   //¶¨ÒåK_RIGHT¹Ü½Å
-#define KEY_UP_Pin      GPIO_Pin_0  //¶¨ÒåKEY_UP¹Ü½Å
+#define KEY_LEFT_Pin    GPIO_Pin_2    //å®šä¹‰K_LEFTç®¡è„š
+#define KEY_DOWN_Pin    GPIO_Pin_3    //å®šä¹‰K_DOWNç®¡è„š
+#define KEY_RIGHT_Pin   GPIO_Pin_4   //å®šä¹‰K_RIGHTç®¡è„š
+#define KEY_UP_Pin      GPIO_Pin_0  //å®šä¹‰KEY_UPç®¡è„š
 
-#define KEY_Port (GPIOE) //¶¨Òå¶Ë¿Ú
-#define KEY_UP_Port (GPIOA) //¶¨Òå¶Ë¿Ú
+#define KEY_Port (GPIOE) //å®šä¹‰ç«¯å£
+#define KEY_UP_Port (GPIOA) //å®šä¹‰ç«¯å£
 
 
-//Ê¹ÓÃÎ»²Ù×÷¶¨Òå
+//ä½¿ç”¨ä½æ“ä½œå®šä¹‰
 #define K_UP PAin(0)
 #define K_DOWN PEin(3)
 #define K_LEFT PEin(2)
 #define K_RIGHT PEin(4)
 
-//Ê¹ÓÃ¶ÁÈ¡¹Ü½Å×´Ì¬¿âº¯Êı¶¨Òå 
+//ä½¿ç”¨è¯»å–ç®¡è„šçŠ¶æ€åº“å‡½æ•°å®šä¹‰ 
 //#define K_UP      GPIO_ReadInputDataBit(KEY_UP_Port,KEY_UP_Pin)
 //#define K_DOWN    GPIO_ReadInputDataBit(KEY_Port,KEY_DOWN_Pin)
 //#define K_LEFT    GPIO_ReadInputDataBit(KEY_Port,KEY_LEFT_Pin)
 //#define K_RIGHT   GPIO_ReadInputDataBit(KEY_Port,KEY_RIGHT_Pin)
 
 
-//¶¨Òå¸÷¸ö°´¼üÖµ  
+//å®šä¹‰å„ä¸ªæŒ‰é”®å€¼  
 #define KEY_UP 1
 #define KEY_DOWN 2
 #define KEY_LEFT 3
