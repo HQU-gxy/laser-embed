@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.1)
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
+set(linker "STM32F10X.ld")
 
 # https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
@@ -135,7 +136,7 @@ set (CMAKE_ASM_FLAGS "-g -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "asm compiler 
 
 # LDFLAGS
 set (CMAKE_EXE_LINKER_FLAGS "-g -Wl,--gc-sections -Wl,-Map=Target 1.map -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "executable linker flags")
-set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${CMAKE_SOURCE_DIR}/STM32FLASH.ld -L ")
+set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${CMAKE_SOURCE_DIR}/${linker} -L ")
 
 
 # Generate the target
