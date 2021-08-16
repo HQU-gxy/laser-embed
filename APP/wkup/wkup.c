@@ -1,22 +1,22 @@
 #include "wkup.h"
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Enter_Standby_Mode
-* º¯Êı¹¦ÄÜ		   : ½øÈë´ı»úÄ£Ê½
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : Enter_Standby_Mode
+* å‡½æ•°åŠŸèƒ½		   : è¿›å…¥å¾…æœºæ¨¡å¼
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void Enter_Standby_Mode(void)
 {
 		
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR,ENABLE);//Ê¹ÄÜPWRÍâÉèÊ±ÖÓ
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR,ENABLE);//ä½¿èƒ½PWRå¤–è®¾æ—¶é’Ÿ
 	
-	PWR_ClearFlag(PWR_FLAG_WU);//Çå³ıWake-up ±êÖ¾
+	PWR_ClearFlag(PWR_FLAG_WU);//æ¸…é™¤Wake-up æ ‡å¿—
 	
-	PWR_WakeUpPinCmd(ENABLE);//Ê¹ÄÜ»½ĞÑ¹Ü½Å	Ê¹ÄÜ»òÕßÊ§ÄÜ»½ĞÑ¹Ü½Å¹¦ÄÜ
+	PWR_WakeUpPinCmd(ENABLE);//ä½¿èƒ½å”¤é†’ç®¡è„š	ä½¿èƒ½æˆ–è€…å¤±èƒ½å”¤é†’ç®¡è„šåŠŸèƒ½
 	
 	
-	PWR_EnterSTANDBYMode();//½øÈë´ı»úÄ£Ê½
+	PWR_EnterSTANDBYMode();//è¿›å…¥å¾…æœºæ¨¡å¼
 }
 
 

@@ -27,7 +27,7 @@ u8 lorasendflag=8;
 u8 data=0;
 u8  y=0;
 u8 port=0;
-u16 USART1_RX_STA=0;       //½ÓÊÕ×´Ì¬±ê¼Ç	
+u16 USART1_RX_STA=0;       //æ¥æ”¶çŠ¶æ€æ ‡è®°	
 u8 USART1_RX_BUF[USART1_REC_LEN]; 
 u8 test=2;
 u8 count=0;
@@ -201,16 +201,16 @@ USART1_FINISH = 0;
 
 void IR_Poll(){
 //irRemote receive	
-if(hw_jsbz==1)	//Èç¹ûºìÍâ½ÓÊÕµ½
+if(hw_jsbz==1)	//å¦‚æœçº¢å¤–æ¥æ”¶åˆ°
 {
-hw_jsbz=0;	   //ÇåÁã
+hw_jsbz=0;	   //æ¸…é›¶
 
 
 data_u8[0] = (hw_jsm >> 24) & 0xff;	 
 data_u8[1] = (hw_jsm >> 16) & 0xff; 	   
 data_u8[2] = (hw_jsm >> 8)  & 0xff;
 data_u8[3] =  hw_jsm       & 0xff;
-hw_jsm=0;					//½ÓÊÕÂëÇåÁã
+hw_jsm=0;					//æ¥æ”¶ç æ¸…é›¶
 data_u8[0]= reverse_bit8(data_u8[0]);
 data_u8[1]= reverse_bit8(data_u8[1]);
 data_u8[2]= reverse_bit8(data_u8[2]);
@@ -256,7 +256,7 @@ buffer2[2]=data_u8[1];//0xc8
 merged=newMergedData(buffer2,bufferSize2);
 USART1_printf("%s",merged);
 //beat_count++;
-////TIM4_Init(20000,36000-1);  //¶¨Ê±10s
+////TIM4_Init(20000,36000-1);  //å®šæ—¶10s
 //while(beat_count!=0){
 
 //	
@@ -270,7 +270,7 @@ USART1_printf("%s",merged);
 //{							
 
 //beat_count--;
-//TIM4_Init(10000,36000-1);  //¶¨Ê±10ss
+//TIM4_Init(10000,36000-1);  //å®šæ—¶10ss
 //for(jk=0;jk<jkl;jk++)
 //{
 //string[jk]=0x00;
@@ -297,7 +297,7 @@ USART1_printf("%s",merged);
 //}
 
 //if(netflag2==1||netflag2==2){
-//TIM4_Init(10000,36000-1);  //¶¨Ê±10ss
+//TIM4_Init(10000,36000-1);  //å®šæ—¶10ss
 //	netflag2=0;
 //}
 
@@ -337,7 +337,7 @@ free(merged);
 void Nrf_RecToSend(){
 //nrf24l01  receive
 
-if(NRF24L01_RxPacket(rx_buf)==0) //½ÓÊÕµ½Êı¾İÏÔÊ¾
+if(NRF24L01_RxPacket(rx_buf)==0) //æ¥æ”¶åˆ°æ•°æ®æ˜¾ç¤º
 {
 	if(rx_buf[0]==22&&rx_buf[5]==0x00&&rx_buf[6]==0x7b)
 {

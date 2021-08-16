@@ -161,7 +161,7 @@ void parseGpsBuffer()
 			if (i == 0)
 			{
 				if ((subString = strstr(Save_Data.GPS_Buffer, ",")) == NULL)
-					errorLog(1);	//解析错误
+					errorLog(1);	//瑙ｆ瀽閿欒
 			}
 			else
 			{
@@ -171,12 +171,12 @@ void parseGpsBuffer()
 					char usefullBuffer[2]; 
 					switch(i)
 					{
-						case 1:memcpy(Save_Data.UTCTime, subString, subStringNext - subString);break;	//获取UTC时间
-						case 2:memcpy(usefullBuffer, subString, subStringNext - subString);break;	//获取UTC时间
-						case 3:memcpy(Save_Data.latitude, subString, subStringNext - subString);break;	//获取纬度信息
-						case 4:memcpy(Save_Data.N_S, subString, subStringNext - subString);break;	//获取N/S
-						case 5:memcpy(Save_Data.longitude, subString, subStringNext - subString);break;	//获取经度信息
-						case 6:memcpy(Save_Data.E_W, subString, subStringNext - subString);break;	//获取E/W
+						case 1:memcpy(Save_Data.UTCTime, subString, subStringNext - subString);break;	//鑾峰彇UTC鏃堕棿
+						case 2:memcpy(usefullBuffer, subString, subStringNext - subString);break;	//鑾峰彇UTC鏃堕棿
+						case 3:memcpy(Save_Data.latitude, subString, subStringNext - subString);break;	//鑾峰彇绾害淇℃伅
+						case 4:memcpy(Save_Data.N_S, subString, subStringNext - subString);break;	//鑾峰彇N/S
+						case 5:memcpy(Save_Data.longitude, subString, subStringNext - subString);break;	//鑾峰彇缁忓害淇℃伅
+						case 6:memcpy(Save_Data.E_W, subString, subStringNext - subString);break;	//鑾峰彇E/W
 
 						default:break;
 					}
@@ -191,7 +191,7 @@ void parseGpsBuffer()
 				}
 				else
 				{
-					errorLog(2);	//解析错误
+					errorLog(2);	//瑙ｆ瀽閿欒
 				}
 			}
 

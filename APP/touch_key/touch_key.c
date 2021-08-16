@@ -2,15 +2,15 @@
 #include "SysTick.h"
 #include "usart.h"
 
-#define Touch_ARR_MAX_VAL 0xffff  //×î´óµÄARRÖµ	
-u16 touch_default_val=0;  //Îª°´ÏÂ´¥Ãş°´¼üÊ±µÄÖµ
+#define Touch_ARR_MAX_VAL 0xffff  //æœ€å¤§çš„ARRå€¼	
+u16 touch_default_val=0;  //ä¸ºæŒ‰ä¸‹è§¦æ‘¸æŒ‰é”®æ—¶çš„å€¼
 
 /*******************************************************************************
-* º¯ Êı Ãû         : TIM5_CH2_Input_Init
-* º¯Êı¹¦ÄÜ		   : TIM5_CH2ÊäÈë²¶»ñ³õÊ¼»¯º¯Êı
-* Êä    Èë         : arr£º×Ô¶¯ÖØ×°ÔØÖµ
-					 psc£ºÔ¤·ÖÆµÏµÊı
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : TIM5_CH2_Input_Init
+* å‡½æ•°åŠŸèƒ½		   : TIM5_CH2è¾“å…¥æ•è·åˆå§‹åŒ–å‡½æ•°
+* è¾“    å…¥         : arrï¼šè‡ªåŠ¨é‡è£…è½½å€¼
+					 pscï¼šé¢„åˆ†é¢‘ç³»æ•°
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void TIM5_CH2_Input_Init(u16 arr,u16 psc)
 {
@@ -19,81 +19,81 @@ void TIM5_CH2_Input_Init(u16 arr,u16 psc)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5,ENABLE);//Ê¹ÄÜTIM5Ê±ÖÓ
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5,ENABLE);//ä½¿èƒ½TIM5æ—¶é’Ÿ
 	
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;			   
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 	 //¸¡¿ÕÊäÈëÄ£Ê½
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 //IO¿ÚËÙ¶ÈÎª50MHz
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 	 //æµ®ç©ºè¾“å…¥æ¨¡å¼
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 //IOå£é€Ÿåº¦ä¸º50MHz
 	GPIO_Init(GPIOA, &GPIO_InitStructure);				  // PA0
 	
 	
-	TIM_TimeBaseInitStructure.TIM_Period=arr;   //×Ô¶¯×°ÔØÖµ
-	TIM_TimeBaseInitStructure.TIM_Prescaler=psc; //·ÖÆµÏµÊı
+	TIM_TimeBaseInitStructure.TIM_Period=arr;   //è‡ªåŠ¨è£…è½½å€¼
+	TIM_TimeBaseInitStructure.TIM_Prescaler=psc; //åˆ†é¢‘ç³»æ•°
 	TIM_TimeBaseInitStructure.TIM_ClockDivision=TIM_CKD_DIV1;
-	TIM_TimeBaseInitStructure.TIM_CounterMode=TIM_CounterMode_Up; //ÉèÖÃÏòÉÏ¼ÆÊıÄ£Ê½
+	TIM_TimeBaseInitStructure.TIM_CounterMode=TIM_CounterMode_Up; //è®¾ç½®å‘ä¸Šè®¡æ•°æ¨¡å¼
 	TIM_TimeBaseInit(TIM5,&TIM_TimeBaseInitStructure);	
 	
-	TIM_ICInitStructure.TIM_Channel=TIM_Channel_2; //Í¨µÀ2
-	TIM_ICInitStructure.TIM_ICFilter=0x00;  //ÂË²¨
-	TIM_ICInitStructure.TIM_ICPolarity=TIM_ICPolarity_Rising;//²¶»ñ¼«ĞÔ
-	TIM_ICInitStructure.TIM_ICPrescaler=TIM_ICPSC_DIV1; //·ÖÆµÏµÊı
-	TIM_ICInitStructure.TIM_ICSelection=TIM_ICSelection_DirectTI;//Ö±½ÓÓ³Éäµ½TI1
+	TIM_ICInitStructure.TIM_Channel=TIM_Channel_2; //é€šé“2
+	TIM_ICInitStructure.TIM_ICFilter=0x00;  //æ»¤æ³¢
+	TIM_ICInitStructure.TIM_ICPolarity=TIM_ICPolarity_Rising;//æ•è·ææ€§
+	TIM_ICInitStructure.TIM_ICPrescaler=TIM_ICPSC_DIV1; //åˆ†é¢‘ç³»æ•°
+	TIM_ICInitStructure.TIM_ICSelection=TIM_ICSelection_DirectTI;//ç›´æ¥æ˜ å°„åˆ°TI1
 	TIM_ICInit(TIM5,&TIM_ICInitStructure);
 		
-	TIM_Cmd(TIM5,ENABLE); //Ê¹ÄÜ¶¨Ê±Æ÷
+	TIM_Cmd(TIM5,ENABLE); //ä½¿èƒ½å®šæ—¶å™¨
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Touch_Reset
-* º¯Êı¹¦ÄÜ		   : ´¥Ãş°´¼ü¸´Î» ÏÈ·ÅµçÈ»ºó³äµç²¢ÊÍ·Å¼ÆÊ±Æ÷ÄÚµÄÖµ
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : Touch_Reset
+* å‡½æ•°åŠŸèƒ½		   : è§¦æ‘¸æŒ‰é”®å¤ä½ å…ˆæ”¾ç”µç„¶åå……ç”µå¹¶é‡Šæ”¾è®¡æ—¶å™¨å†…çš„å€¼
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void Touch_Reset(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;			   
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 	 //ÍÆÍìÊä³öÄ£Ê½
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 //IO¿ÚËÙ¶ÈÎª50MHz
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 	 //æ¨æŒ½è¾“å‡ºæ¨¡å¼
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 //IOå£é€Ÿåº¦ä¸º50MHz
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	 
-	GPIO_ResetBits(GPIOA,GPIO_Pin_0);//Êä³ö0,·Åµç
+	GPIO_ResetBits(GPIOA,GPIO_Pin_0);//è¾“å‡º0,æ”¾ç”µ
 
 	delay_ms(5);
-	TIM_ClearFlag(TIM5, TIM_FLAG_CC2|TIM_FLAG_Update); //Çå³ı±êÖ¾
-	TIM_SetCounter(TIM5,0);		//¹é0
+	TIM_ClearFlag(TIM5, TIM_FLAG_CC2|TIM_FLAG_Update); //æ¸…é™¤æ ‡å¿—
+	TIM_SetCounter(TIM5,0);		//å½’0
 	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 	 //¸¡¿ÕÊäÈëÄ£Ê½	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 	 //æµ®ç©ºè¾“å…¥æ¨¡å¼	
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Touch_Get_Val
-* º¯Êı¹¦ÄÜ		   : ·µ»Ø²¶»ñ¸ßµçÆ½Öµ
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ²¶»ñ¸ßµçÆ½Öµ
+* å‡½ æ•° å         : Touch_Get_Val
+* å‡½æ•°åŠŸèƒ½		   : è¿”å›æ•è·é«˜ç”µå¹³å€¼
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ•è·é«˜ç”µå¹³å€¼
 *******************************************************************************/
 u16 Touch_Get_Val(void)
 {
 	Touch_Reset();
-	while(TIM_GetFlagStatus(TIM5,TIM_FLAG_CC2)==0) //µÈ´ı²¶»ñµ½¸ßµçÆ½±êÖ¾
+	while(TIM_GetFlagStatus(TIM5,TIM_FLAG_CC2)==0) //ç­‰å¾…æ•è·åˆ°é«˜ç”µå¹³æ ‡å¿—
 	{
-		if(TIM_GetCounter(TIM5)>Touch_ARR_MAX_VAL-500)  //³¬Ê±ÁËÖ±½Ó·µ»ØCNTÖµ
+		if(TIM_GetCounter(TIM5)>Touch_ARR_MAX_VAL-500)  //è¶…æ—¶äº†ç›´æ¥è¿”å›CNTå€¼
 		{
 			return TIM_GetCounter(TIM5);
 		}
 	}
-	return TIM_GetCapture2(TIM5); //·µ»Ø²¶»ñ¸ßµçÆ½Öµ
+	return TIM_GetCapture2(TIM5); //è¿”å›æ•è·é«˜ç”µå¹³å€¼
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Touch_Key_Init
-* º¯Êı¹¦ÄÜ		   : ´¥Ãş°´¼ü³õÊ¼»¯
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : 0£ºÕı³£
-					 1£º²»Õı³£
+* å‡½ æ•° å         : Touch_Key_Init
+* å‡½æ•°åŠŸèƒ½		   : è§¦æ‘¸æŒ‰é”®åˆå§‹åŒ–
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : 0ï¼šæ­£å¸¸
+					 1ï¼šä¸æ­£å¸¸
 *******************************************************************************/
 u8 Touch_Key_Init(u8 psc)  
 {
@@ -103,13 +103,13 @@ u8 Touch_Key_Init(u8 psc)
 	u16 temp;
 	TIM5_CH2_Input_Init(Touch_ARR_MAX_VAL,psc);
 	
-	for(i=0;i<10;i++) //¶ÁÈ¡10´ÎÎª°´ÏÂÊ±ºòµÄ´¥ÃşÖµ
+	for(i=0;i<10;i++) //è¯»å–10æ¬¡ä¸ºæŒ‰ä¸‹æ—¶å€™çš„è§¦æ‘¸å€¼
 	{
 		buf[i]=Touch_Get_Val();
 		delay_ms(10);
 	}
 	
-	for(i=0;i<9;i++)   //´ÓĞ¡µ½´óÅÅĞò
+	for(i=0;i<9;i++)   //ä»å°åˆ°å¤§æ’åº
 	{
 		for(j=i+1;j<10;j++)
 		{
@@ -123,7 +123,7 @@ u8 Touch_Key_Init(u8 psc)
 	}
 	
 	temp=0;
-	for(i=2;i<8;i++)  //È¡ÖĞ¼ä6¸öÊıÖµÇóºÍ È¡ÆäÆ½¾ùÊı
+	for(i=2;i<8;i++)  //å–ä¸­é—´6ä¸ªæ•°å€¼æ±‚å’Œ å–å…¶å¹³å‡æ•°
 	{
 		temp+=buf[i];
 	}
@@ -131,16 +131,16 @@ u8 Touch_Key_Init(u8 psc)
 	printf("touch_default_val=%d \r\n",touch_default_val);
 	if(touch_default_val>Touch_ARR_MAX_VAL/2)
 	{
-		return 1;//³õÊ¼»¯Óöµ½³¬¹ıTouch_ARR_MAX_VAL/2µÄÊıÖµ,²»Õı³£!
+		return 1;//åˆå§‹åŒ–é‡åˆ°è¶…è¿‡Touch_ARR_MAX_VAL/2çš„æ•°å€¼,ä¸æ­£å¸¸!
 	}
 	return 0;
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Touch_Get_MaxVal
-* º¯Êı¹¦ÄÜ		   : ¶ÁÈ¡n´Î,È¡×î´óÖµ
-* Êä    Èë         : n£ºÁ¬Ğø»ñÈ¡µÄ´ÎÊı
-* Êä    ³ö         : n´Î¶ÁÊıÀïÃæ¶Áµ½µÄ×î´ó¶ÁÊıÖµ
+* å‡½ æ•° å         : Touch_Get_MaxVal
+* å‡½æ•°åŠŸèƒ½		   : è¯»å–næ¬¡,å–æœ€å¤§å€¼
+* è¾“    å…¥         : nï¼šè¿ç»­è·å–çš„æ¬¡æ•°
+* è¾“    å‡º         : næ¬¡è¯»æ•°é‡Œé¢è¯»åˆ°çš„æœ€å¤§è¯»æ•°å€¼
 *******************************************************************************/
 u16 Touch_Get_MaxVal(u8 n)
 {
@@ -148,41 +148,41 @@ u16 Touch_Get_MaxVal(u8 n)
 	u16 res=0; 
 	while(n--)
 	{
-		temp=Touch_Get_Val();//µÃµ½Ò»´ÎÖµ
+		temp=Touch_Get_Val();//å¾—åˆ°ä¸€æ¬¡å€¼
 		if(temp>res)res=temp;
 	}
 	return res;
 }  
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Touch_Key_Scan
-* º¯Êı¹¦ÄÜ		   : ´¥Ãş°´¼üÉ¨Ãè
-* Êä    Èë         : 0£º²»Ö§³ÖÁ¬Ğø´¥·¢(°´ÏÂÒ»´Î±ØĞëËÉ¿ª²ÅÄÜ°´ÏÂÒ»´Î)
-					 1£ºÖ§³ÖÁ¬Ğø´¥·¢(¿ÉÒÔÒ»Ö±°´ÏÂ)
-* Êä    ³ö         : 0£ºÃ»ÓĞ°´ÏÂ
-					 1£ºÓĞ°´ÏÂ
+* å‡½ æ•° å         : Touch_Key_Scan
+* å‡½æ•°åŠŸèƒ½		   : è§¦æ‘¸æŒ‰é”®æ‰«æ
+* è¾“    å…¥         : 0ï¼šä¸æ”¯æŒè¿ç»­è§¦å‘(æŒ‰ä¸‹ä¸€æ¬¡å¿…é¡»æ¾å¼€æ‰èƒ½æŒ‰ä¸‹ä¸€æ¬¡)
+					 1ï¼šæ”¯æŒè¿ç»­è§¦å‘(å¯ä»¥ä¸€ç›´æŒ‰ä¸‹)
+* è¾“    å‡º         : 0ï¼šæ²¡æœ‰æŒ‰ä¸‹
+					 1ï¼šæœ‰æŒ‰ä¸‹
 *******************************************************************************/										  
-#define TOUCH_GATE_VAL 	100	//´¥ÃşµÄÃÅÏŞÖµ,Ò²¾ÍÊÇ±ØĞë´óÓÚtpad_default_val+TOUCH_GATE_VAL,²ÅÈÏÎªÊÇÓĞĞ§´¥Ãş.
+#define TOUCH_GATE_VAL 	100	//è§¦æ‘¸çš„é—¨é™å€¼,ä¹Ÿå°±æ˜¯å¿…é¡»å¤§äºtpad_default_val+TOUCH_GATE_VAL,æ‰è®¤ä¸ºæ˜¯æœ‰æ•ˆè§¦æ‘¸.
 u8 Touch_Key_Scan(u8 mode)
 {
-	static u8 keyen=0;	//0,¿ÉÒÔ¿ªÊ¼¼ì²â;>0,»¹²»ÄÜ¿ªÊ¼¼ì²â	 
+	static u8 keyen=0;	//0,å¯ä»¥å¼€å§‹æ£€æµ‹;>0,è¿˜ä¸èƒ½å¼€å§‹æ£€æµ‹	 
 	u8 res=0;
-	u8 sample=3;		//Ä¬ÈÏ²ÉÑù´ÎÊıÎª3´Î	 
+	u8 sample=3;		//é»˜è®¤é‡‡æ ·æ¬¡æ•°ä¸º3æ¬¡	 
 	u16 rval;
 	if(mode)
 	{
-		sample=6;	//Ö§³ÖÁ¬°´µÄÊ±ºò£¬ÉèÖÃ²ÉÑù´ÎÊıÎª6´Î
-		keyen=0;	//Ö§³ÖÁ¬°´	  
+		sample=6;	//æ”¯æŒè¿æŒ‰çš„æ—¶å€™ï¼Œè®¾ç½®é‡‡æ ·æ¬¡æ•°ä¸º6æ¬¡
+		keyen=0;	//æ”¯æŒè¿æŒ‰	  
 	}
 	rval=Touch_Get_MaxVal(sample); 
-	if(rval>(touch_default_val+TOUCH_GATE_VAL)&&rval<(10*touch_default_val))//´óÓÚtouch_default_val+TPAD_GATE_VAL,ÇÒĞ¡ÓÚ10±¶touch_default_val,ÔòÓĞĞ§
+	if(rval>(touch_default_val+TOUCH_GATE_VAL)&&rval<(10*touch_default_val))//å¤§äºtouch_default_val+TPAD_GATE_VAL,ä¸”å°äº10å€touch_default_val,åˆ™æœ‰æ•ˆ
 	{							 
-		if((keyen==0)&&(rval>(touch_default_val+TOUCH_GATE_VAL)))	//´óÓÚtouch_default_val+TOUCH_GATE_VAL,ÓĞĞ§
+		if((keyen==0)&&(rval>(touch_default_val+TOUCH_GATE_VAL)))	//å¤§äºtouch_default_val+TOUCH_GATE_VAL,æœ‰æ•ˆ
 		{
 			res=1;
 		}	   
-		printf("´¥Ãşºó²¶»ñ¸ßµçÆ½ÖµÎª£º%d\r\n",rval);		     	    					   
-		keyen=3;				//ÖÁÉÙÒªÔÙ¹ı3´ÎÖ®ºó²ÅÄÜ°´¼üÓĞĞ§   
+		printf("è§¦æ‘¸åæ•è·é«˜ç”µå¹³å€¼ä¸ºï¼š%d\r\n",rval);		     	    					   
+		keyen=3;				//è‡³å°‘è¦å†è¿‡3æ¬¡ä¹‹åæ‰èƒ½æŒ‰é”®æœ‰æ•ˆ   
 	} 
 	if(keyen)keyen--;		   							   		     	    					   
 	return res;

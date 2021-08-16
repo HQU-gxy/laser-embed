@@ -4,10 +4,10 @@
 #include "key.h"
 
 /*******************************************************************************
-* º¯ Êı Ãû         : My_EXTI_Init
-* º¯Êı¹¦ÄÜ		   : Íâ²¿ÖĞ¶Ï³õÊ¼»¯
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : My_EXTI_Init
+* å‡½æ•°åŠŸèƒ½		   : å¤–éƒ¨ä¸­æ–­åˆå§‹åŒ–
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void My_EXTI_Init(void)
 {
@@ -16,41 +16,41 @@ void My_EXTI_Init(void)
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);
 	
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource2);//Ñ¡ÔñGPIO¹Ü½ÅÓÃ×÷Íâ²¿ÖĞ¶ÏÏßÂ·
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource3);//Ñ¡ÔñGPIO¹Ü½ÅÓÃ×÷Íâ²¿ÖĞ¶ÏÏßÂ·
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource4);//Ñ¡ÔñGPIO¹Ü½ÅÓÃ×÷Íâ²¿ÖĞ¶ÏÏßÂ·
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource0);//Ñ¡ÔñGPIO¹Ü½ÅÓÃ×÷Íâ²¿ÖĞ¶ÏÏßÂ·
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource2);//é€‰æ‹©GPIOç®¡è„šç”¨ä½œå¤–éƒ¨ä¸­æ–­çº¿è·¯
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource3);//é€‰æ‹©GPIOç®¡è„šç”¨ä½œå¤–éƒ¨ä¸­æ–­çº¿è·¯
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource4);//é€‰æ‹©GPIOç®¡è„šç”¨ä½œå¤–éƒ¨ä¸­æ–­çº¿è·¯
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource0);//é€‰æ‹©GPIOç®¡è„šç”¨ä½œå¤–éƒ¨ä¸­æ–­çº¿è·¯
 	
 	
-	//EXTI0 NVIC ÅäÖÃ
-	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;//EXTI0ÖĞ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//ÇÀÕ¼ÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =3;		//×ÓÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾İÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯VIC¼Ä´æÆ÷
+	//EXTI0 NVIC é…ç½®
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;//EXTI0ä¸­æ–­é€šé“
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//æŠ¢å ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =3;		//å­ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQé€šé“ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);	//æ ¹æ®æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–VICå¯„å­˜å™¨
 	
 	
-	//EXTI2 NVIC ÅäÖÃ
-	NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;//EXTI2ÖĞ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//ÇÀÕ¼ÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =2;		//×ÓÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾İÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯VIC¼Ä´æÆ÷
+	//EXTI2 NVIC é…ç½®
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;//EXTI2ä¸­æ–­é€šé“
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//æŠ¢å ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =2;		//å­ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQé€šé“ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);	//æ ¹æ®æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–VICå¯„å­˜å™¨
 	
 	
-	//EXTI3 NVIC ÅäÖÃ
-	NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn;//EXTI3ÖĞ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//ÇÀÕ¼ÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;		//×ÓÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾İÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯VIC¼Ä´æÆ÷
+	//EXTI3 NVIC é…ç½®
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn;//EXTI3ä¸­æ–­é€šé“
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//æŠ¢å ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;		//å­ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQé€šé“ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);	//æ ¹æ®æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–VICå¯„å­˜å™¨
 	
-	//EXTI4 NVIC ÅäÖÃ
-	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;//EXTI4ÖĞ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//ÇÀÕ¼ÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;		//×ÓÓÅÏÈ¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾İÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯VIC¼Ä´æÆ÷
+	//EXTI4 NVIC é…ç½®
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;//EXTI4ä¸­æ–­é€šé“
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2;//æŠ¢å ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;		//å­ä¼˜å…ˆçº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQé€šé“ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);	//æ ¹æ®æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–VICå¯„å­˜å™¨
 	
 	
 	EXTI_InitStructure.EXTI_Line=EXTI_Line0;
@@ -68,10 +68,10 @@ void My_EXTI_Init(void)
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : EXTI0_IRQHandler
-* º¯Êı¹¦ÄÜ		   : Íâ²¿ÖĞ¶Ï0º¯Êı
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : EXTI0_IRQHandler
+* å‡½æ•°åŠŸèƒ½		   : å¤–éƒ¨ä¸­æ–­0å‡½æ•°
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void EXTI0_IRQHandler(void)
 {
@@ -87,10 +87,10 @@ void EXTI0_IRQHandler(void)
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : EXTI3_IRQHandler
-* º¯Êı¹¦ÄÜ		   : Íâ²¿ÖĞ¶Ï3º¯Êı
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : EXTI3_IRQHandler
+* å‡½æ•°åŠŸèƒ½		   : å¤–éƒ¨ä¸­æ–­3å‡½æ•°
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void EXTI3_IRQHandler(void)
 {
@@ -107,10 +107,10 @@ void EXTI3_IRQHandler(void)
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : EXTI2_IRQHandler
-* º¯Êı¹¦ÄÜ		   : Íâ²¿ÖĞ¶Ï2º¯Êı
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : EXTI2_IRQHandler
+* å‡½æ•°åŠŸèƒ½		   : å¤–éƒ¨ä¸­æ–­2å‡½æ•°
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void EXTI2_IRQHandler(void)
 {
@@ -127,10 +127,10 @@ void EXTI2_IRQHandler(void)
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : EXTI4_IRQHandler
-* º¯Êı¹¦ÄÜ		   : Íâ²¿ÖĞ¶Ï4º¯Êı
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : EXTI4_IRQHandler
+* å‡½æ•°åŠŸèƒ½		   : å¤–éƒ¨ä¸­æ–­4å‡½æ•°
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void EXTI4_IRQHandler(void)
 {

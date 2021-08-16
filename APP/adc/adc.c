@@ -2,62 +2,62 @@
 #include "SysTick.h"
 
 /*******************************************************************************
-* º¯ Êı Ãû         : ADCx_Init
-* º¯Êı¹¦ÄÜ		   : ADC³õÊ¼»¯	
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : ADCx_Init
+* å‡½æ•°åŠŸèƒ½		   : ADCåˆå§‹åŒ–	
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void ADCx_Init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStructure; //¶¨Òå½á¹¹Ìå±äÁ¿	
+	GPIO_InitTypeDef GPIO_InitStructure; //å®šä¹‰ç»“æ„ä½“å˜é‡	
 	ADC_InitTypeDef       ADC_InitStructure;
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_ADC1,ENABLE);
 	
-	RCC_ADCCLKConfig(RCC_PCLK2_Div6);//ÉèÖÃADC·ÖÆµÒò×Ó6 72M/6=12,ADC×î´óÊ±¼ä²»ÄÜ³¬¹ı14M
+	RCC_ADCCLKConfig(RCC_PCLK2_Div6);//è®¾ç½®ADCåˆ†é¢‘å› å­6 72M/6=12,ADCæœ€å¤§æ—¶é—´ä¸èƒ½è¶…è¿‡14M
 	
 	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_1;//ADC
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AIN;	//Ä£ÄâÊäÈë
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AIN;	//æ¨¡æ‹Ÿè¾“å…¥
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA,&GPIO_InitStructure);
 	
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
-	ADC_InitStructure.ADC_ScanConvMode = DISABLE;//·ÇÉ¨ÃèÄ£Ê½	
-	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//¹Ø±ÕÁ¬Ğø×ª»»
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;//½ûÖ¹´¥·¢¼ì²â£¬Ê¹ÓÃÈí¼ş´¥·¢
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//ÓÒ¶ÔÆë	
-	ADC_InitStructure.ADC_NbrOfChannel = 1;//1¸ö×ª»»ÔÚ¹æÔòĞòÁĞÖĞ Ò²¾ÍÊÇÖ»×ª»»¹æÔòĞòÁĞ1 
-	ADC_Init(ADC1, &ADC_InitStructure);//ADC³õÊ¼»¯
+	ADC_InitStructure.ADC_ScanConvMode = DISABLE;//éæ‰«ææ¨¡å¼	
+	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//å…³é—­è¿ç»­è½¬æ¢
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;//ç¦æ­¢è§¦å‘æ£€æµ‹ï¼Œä½¿ç”¨è½¯ä»¶è§¦å‘
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//å³å¯¹é½	
+	ADC_InitStructure.ADC_NbrOfChannel = 1;//1ä¸ªè½¬æ¢åœ¨è§„åˆ™åºåˆ—ä¸­ ä¹Ÿå°±æ˜¯åªè½¬æ¢è§„åˆ™åºåˆ—1 
+	ADC_Init(ADC1, &ADC_InitStructure);//ADCåˆå§‹åŒ–
 	
-	ADC_Cmd(ADC1, ENABLE);//¿ªÆôAD×ª»»Æ÷
+	ADC_Cmd(ADC1, ENABLE);//å¼€å¯ADè½¬æ¢å™¨
 	
-	ADC_ResetCalibration(ADC1);//ÖØÖÃÖ¸¶¨µÄADCµÄĞ£×¼¼Ä´æÆ÷
-	while(ADC_GetResetCalibrationStatus(ADC1));//»ñÈ¡ADCÖØÖÃĞ£×¼¼Ä´æÆ÷µÄ×´Ì¬
+	ADC_ResetCalibration(ADC1);//é‡ç½®æŒ‡å®šçš„ADCçš„æ ¡å‡†å¯„å­˜å™¨
+	while(ADC_GetResetCalibrationStatus(ADC1));//è·å–ADCé‡ç½®æ ¡å‡†å¯„å­˜å™¨çš„çŠ¶æ€
 	
-	ADC_StartCalibration(ADC1);//¿ªÊ¼Ö¸¶¨ADCµÄĞ£×¼×´Ì¬
-	while(ADC_GetCalibrationStatus(ADC1));//»ñÈ¡Ö¸¶¨ADCµÄĞ£×¼³ÌĞò
+	ADC_StartCalibration(ADC1);//å¼€å§‹æŒ‡å®šADCçš„æ ¡å‡†çŠ¶æ€
+	while(ADC_GetCalibrationStatus(ADC1));//è·å–æŒ‡å®šADCçš„æ ¡å‡†ç¨‹åº
 
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Ê¹ÄÜ»òÕßÊ§ÄÜÖ¸¶¨µÄADCµÄÈí¼ş×ª»»Æô¶¯¹¦ÄÜ
+	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//ä½¿èƒ½æˆ–è€…å¤±èƒ½æŒ‡å®šçš„ADCçš„è½¯ä»¶è½¬æ¢å¯åŠ¨åŠŸèƒ½
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Get_ADC_Value
-* º¯Êı¹¦ÄÜ		   : »ñÈ¡Í¨µÀchµÄ×ª»»Öµ£¬È¡times´Î,È»ºóÆ½¾ù 	
-* Êä    Èë         : ch:Í¨µÀ±àºÅ
-					 times:»ñÈ¡´ÎÊı
-* Êä    ³ö         : Í¨µÀchµÄtimes´Î×ª»»½á¹ûÆ½¾ùÖµ
+* å‡½ æ•° å         : Get_ADC_Value
+* å‡½æ•°åŠŸèƒ½		   : è·å–é€šé“chçš„è½¬æ¢å€¼ï¼Œå–timesæ¬¡,ç„¶åå¹³å‡ 	
+* è¾“    å…¥         : ch:é€šé“ç¼–å·
+					 times:è·å–æ¬¡æ•°
+* è¾“    å‡º         : é€šé“chçš„timesæ¬¡è½¬æ¢ç»“æœå¹³å‡å€¼
 *******************************************************************************/
 u16 Get_ADC_Value(u8 ch,u8 times)
 {
 	u32 temp_val=0;
 	u8 t;
-	//ÉèÖÃÖ¸¶¨ADCµÄ¹æÔò×éÍ¨µÀ£¬Ò»¸öĞòÁĞ£¬²ÉÑùÊ±¼ä
-	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5);	//ADC1,ADCÍ¨µÀ,239¸öÖÜÆÚ,Ìá¸ß²ÉÑùÊ±¼ä¿ÉÒÔÌá¸ß¾«È·¶È			    
+	//è®¾ç½®æŒ‡å®šADCçš„è§„åˆ™ç»„é€šé“ï¼Œä¸€ä¸ªåºåˆ—ï¼Œé‡‡æ ·æ—¶é—´
+	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5);	//ADC1,ADCé€šé“,239ä¸ªå‘¨æœŸ,æé«˜é‡‡æ ·æ—¶é—´å¯ä»¥æé«˜ç²¾ç¡®åº¦			    
 	
 	for(t=0;t<times;t++)
 	{
-		ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Ê¹ÄÜÖ¸¶¨µÄADC1µÄÈí¼ş×ª»»Æô¶¯¹¦ÄÜ	
-		while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//µÈ´ı×ª»»½áÊø
+		ADC_SoftwareStartConvCmd(ADC1, ENABLE);//ä½¿èƒ½æŒ‡å®šçš„ADC1çš„è½¯ä»¶è½¬æ¢å¯åŠ¨åŠŸèƒ½	
+		while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//ç­‰å¾…è½¬æ¢ç»“æŸ
 		temp_val+=ADC_GetConversionValue(ADC1);
 		delay_ms(5);
 	}

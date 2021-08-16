@@ -1,15 +1,15 @@
 #include "can.h"
 #include "usart.h"
 
-//CAN³õÊ¼»¯
-//tsjw:ÖØĞÂÍ¬²½ÌøÔ¾Ê±¼äµ¥Ôª.·¶Î§:CAN_SJW_1tq~ CAN_SJW_4tq
-//tbs2:Ê±¼ä¶Î2µÄÊ±¼äµ¥Ôª.   ·¶Î§:CAN_BS2_1tq~CAN_BS2_8tq;
-//tbs1:Ê±¼ä¶Î1µÄÊ±¼äµ¥Ôª.   ·¶Î§:CAN_BS1_1tq ~CAN_BS1_16tq
-//brp :²¨ÌØÂÊ·ÖÆµÆ÷.·¶Î§:1~1024; tq=(brp)*tpclk1
-//²¨ÌØÂÊ=Fpclk1/((tbs1+1+tbs2+1+1)*brp);
-//mode:CAN_Mode_Normal,ÆÕÍ¨Ä£Ê½;CAN_Mode_LoopBack,»Ø»·Ä£Ê½;
-//Fpclk1µÄÊ±ÖÓÔÚ³õÊ¼»¯µÄÊ±ºòÉèÖÃÎª42M,Èç¹ûÉèÖÃCAN_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6,CAN_Mode_LoopBack);
-//Ôò²¨ÌØÂÊÎª:42M/((6+7+1)*6)=500Kbps
+//CANåˆå§‹åŒ–
+//tsjw:é‡æ–°åŒæ­¥è·³è·ƒæ—¶é—´å•å…ƒ.èŒƒå›´:CAN_SJW_1tq~ CAN_SJW_4tq
+//tbs2:æ—¶é—´æ®µ2çš„æ—¶é—´å•å…ƒ.   èŒƒå›´:CAN_BS2_1tq~CAN_BS2_8tq;
+//tbs1:æ—¶é—´æ®µ1çš„æ—¶é—´å•å…ƒ.   èŒƒå›´:CAN_BS1_1tq ~CAN_BS1_16tq
+//brp :æ³¢ç‰¹ç‡åˆ†é¢‘å™¨.èŒƒå›´:1~1024; tq=(brp)*tpclk1
+//æ³¢ç‰¹ç‡=Fpclk1/((tbs1+1+tbs2+1+1)*brp);
+//mode:CAN_Mode_Normal,æ™®é€šæ¨¡å¼;CAN_Mode_LoopBack,å›ç¯æ¨¡å¼;
+//Fpclk1çš„æ—¶é’Ÿåœ¨åˆå§‹åŒ–çš„æ—¶å€™è®¾ç½®ä¸º42M,å¦‚æœè®¾ç½®CAN_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6,CAN_Mode_LoopBack);
+//åˆ™æ³¢ç‰¹ç‡ä¸º:42M/((6+7+1)*6)=500Kbps
 void CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -20,57 +20,57 @@ void CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 	NVIC_InitTypeDef  		NVIC_InitStructure;
 #endif
 	
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE); //´ò¿ªCAN1Ê±ÖÓ
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //PA¶Ë¿ÚÊ±ÖÓ´ò¿ª
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE); //æ‰“å¼€CAN1æ—¶é’Ÿ
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //PAç«¯å£æ—¶é’Ÿæ‰“å¼€
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;		//PA11	   
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 	 //ÉÏÀ­ÊäÈëÄ£Ê½
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 	 //ä¸Šæ‹‰è¾“å…¥æ¨¡å¼
 	GPIO_Init(GPIOA, &GPIO_InitStructure);	
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;		//PA12	   
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP; 	 //¸´ÓÃÍÆÍìÊä³ö
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 //IO¿ÚËÙ¶ÈÎª50MHz
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP; 	 //å¤ç”¨æ¨æŒ½è¾“å‡º
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 //IOå£é€Ÿåº¦ä¸º50MHz
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
-	//CANµ¥ÔªÉèÖÃ
-   	CAN_InitStructure.CAN_TTCM=DISABLE;	//·ÇÊ±¼ä´¥·¢Í¨ĞÅÄ£Ê½   
-  	CAN_InitStructure.CAN_ABOM=DISABLE;	//Èí¼ş×Ô¶¯ÀëÏß¹ÜÀí	  
-  	CAN_InitStructure.CAN_AWUM=DISABLE;//Ë¯ÃßÄ£Ê½Í¨¹ıÈí¼ş»½ĞÑ(Çå³ıCAN->MCRµÄSLEEPÎ»)
-  	CAN_InitStructure.CAN_NART=ENABLE;	//Ê¹ÓÃ±¨ÎÄ×Ô¶¯´«ËÍ 
-  	CAN_InitStructure.CAN_RFLM=DISABLE;	//±¨ÎÄ²»Ëø¶¨,ĞÂµÄ¸²¸Ç¾ÉµÄ  
-  	CAN_InitStructure.CAN_TXFP=DISABLE;	//ÓÅÏÈ¼¶ÓÉ±¨ÎÄ±êÊ¶·û¾ö¶¨ 
-  	CAN_InitStructure.CAN_Mode= mode;	 //Ä£Ê½ÉèÖÃ 
-  	CAN_InitStructure.CAN_SJW=tsjw;	//ÖØĞÂÍ¬²½ÌøÔ¾¿í¶È(Tsjw)Îªtsjw+1¸öÊ±¼äµ¥Î» CAN_SJW_1tq~CAN_SJW_4tq
-  	CAN_InitStructure.CAN_BS1=tbs1; //Tbs1·¶Î§CAN_BS1_1tq ~CAN_BS1_16tq
-  	CAN_InitStructure.CAN_BS2=tbs2;//Tbs2·¶Î§CAN_BS2_1tq ~	CAN_BS2_8tq
-  	CAN_InitStructure.CAN_Prescaler=brp;  //·ÖÆµÏµÊı(Fdiv)Îªbrp+1	
-  	CAN_Init(CAN1, &CAN_InitStructure);   // ³õÊ¼»¯CAN1
+	//CANå•å…ƒè®¾ç½®
+   	CAN_InitStructure.CAN_TTCM=DISABLE;	//éæ—¶é—´è§¦å‘é€šä¿¡æ¨¡å¼   
+  	CAN_InitStructure.CAN_ABOM=DISABLE;	//è½¯ä»¶è‡ªåŠ¨ç¦»çº¿ç®¡ç†	  
+  	CAN_InitStructure.CAN_AWUM=DISABLE;//ç¡çœ æ¨¡å¼é€šè¿‡è½¯ä»¶å”¤é†’(æ¸…é™¤CAN->MCRçš„SLEEPä½)
+  	CAN_InitStructure.CAN_NART=ENABLE;	//ä½¿ç”¨æŠ¥æ–‡è‡ªåŠ¨ä¼ é€ 
+  	CAN_InitStructure.CAN_RFLM=DISABLE;	//æŠ¥æ–‡ä¸é”å®š,æ–°çš„è¦†ç›–æ—§çš„  
+  	CAN_InitStructure.CAN_TXFP=DISABLE;	//ä¼˜å…ˆçº§ç”±æŠ¥æ–‡æ ‡è¯†ç¬¦å†³å®š 
+  	CAN_InitStructure.CAN_Mode= mode;	 //æ¨¡å¼è®¾ç½® 
+  	CAN_InitStructure.CAN_SJW=tsjw;	//é‡æ–°åŒæ­¥è·³è·ƒå®½åº¦(Tsjw)ä¸ºtsjw+1ä¸ªæ—¶é—´å•ä½ CAN_SJW_1tq~CAN_SJW_4tq
+  	CAN_InitStructure.CAN_BS1=tbs1; //Tbs1èŒƒå›´CAN_BS1_1tq ~CAN_BS1_16tq
+  	CAN_InitStructure.CAN_BS2=tbs2;//Tbs2èŒƒå›´CAN_BS2_1tq ~	CAN_BS2_8tq
+  	CAN_InitStructure.CAN_Prescaler=brp;  //åˆ†é¢‘ç³»æ•°(Fdiv)ä¸ºbrp+1	
+  	CAN_Init(CAN1, &CAN_InitStructure);   // åˆå§‹åŒ–CAN1
 	
-	//ÅäÖÃ¹ıÂËÆ÷
- 	CAN_FilterInitStructure.CAN_FilterNumber=0;	  //¹ıÂËÆ÷0
+	//é…ç½®è¿‡æ»¤å™¨
+ 	CAN_FilterInitStructure.CAN_FilterNumber=0;	  //è¿‡æ»¤å™¨0
   	CAN_FilterInitStructure.CAN_FilterMode=CAN_FilterMode_IdMask; 
-  	CAN_FilterInitStructure.CAN_FilterScale=CAN_FilterScale_32bit; //32Î» 
-  	CAN_FilterInitStructure.CAN_FilterIdHigh=0x0000;////32Î»ID
+  	CAN_FilterInitStructure.CAN_FilterScale=CAN_FilterScale_32bit; //32ä½ 
+  	CAN_FilterInitStructure.CAN_FilterIdHigh=0x0000;////32ä½ID
   	CAN_FilterInitStructure.CAN_FilterIdLow=0x0000;
-  	CAN_FilterInitStructure.CAN_FilterMaskIdHigh=0x0000;//32Î»MASK
+  	CAN_FilterInitStructure.CAN_FilterMaskIdHigh=0x0000;//32ä½MASK
   	CAN_FilterInitStructure.CAN_FilterMaskIdLow=0x0000;
-   	CAN_FilterInitStructure.CAN_FilterFIFOAssignment=CAN_Filter_FIFO0;//¹ıÂËÆ÷0¹ØÁªµ½FIFO0
-  	CAN_FilterInitStructure.CAN_FilterActivation=ENABLE; //¼¤»î¹ıÂËÆ÷0
-  	CAN_FilterInit(&CAN_FilterInitStructure);//ÂË²¨Æ÷³õÊ¼»¯
+   	CAN_FilterInitStructure.CAN_FilterFIFOAssignment=CAN_Filter_FIFO0;//è¿‡æ»¤å™¨0å…³è”åˆ°FIFO0
+  	CAN_FilterInitStructure.CAN_FilterActivation=ENABLE; //æ¿€æ´»è¿‡æ»¤å™¨0
+  	CAN_FilterInit(&CAN_FilterInitStructure);//æ»¤æ³¢å™¨åˆå§‹åŒ–
 	
 #if CAN_RX0_INT_ENABLE 
-	CAN_ITConfig(CAN1,CAN_IT_FMP0,ENABLE);				//FIFO0ÏûÏ¢¹ÒºÅÖĞ¶ÏÔÊĞí.		    
+	CAN_ITConfig(CAN1,CAN_IT_FMP0,ENABLE);				//FIFO0æ¶ˆæ¯æŒ‚å·ä¸­æ–­å…è®¸.		    
 
 	NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_RX0_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;     // Ö÷ÓÅÏÈ¼¶Îª1
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;            // ´ÎÓÅÏÈ¼¶Îª0
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;     // ä¸»ä¼˜å…ˆçº§ä¸º1
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;            // æ¬¡ä¼˜å…ˆçº§ä¸º0
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 #endif
 }
 
-#if CAN_RX0_INT_ENABLE	//Ê¹ÄÜRX0ÖĞ¶Ï
-//ÖĞ¶Ï·şÎñº¯Êı			    
+#if CAN_RX0_INT_ENABLE	//ä½¿èƒ½RX0ä¸­æ–­
+//ä¸­æ–­æœåŠ¡å‡½æ•°			    
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
   	CanRxMsg RxMessage;
@@ -81,40 +81,40 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 }
 #endif
 
-//can·¢ËÍÒ»×éÊı¾İ(¹Ì¶¨¸ñÊ½:IDÎª0X12,±ê×¼Ö¡,Êı¾İÖ¡)	
-//len:Êı¾İ³¤¶È(×î´óÎª8)				     
-//msg:Êı¾İÖ¸Õë,×î´óÎª8¸ö×Ö½Ú.
-//·µ»ØÖµ:0,³É¹¦;
-//		 ÆäËû,Ê§°Ü;
+//canå‘é€ä¸€ç»„æ•°æ®(å›ºå®šæ ¼å¼:IDä¸º0X12,æ ‡å‡†å¸§,æ•°æ®å¸§)	
+//len:æ•°æ®é•¿åº¦(æœ€å¤§ä¸º8)				     
+//msg:æ•°æ®æŒ‡é’ˆ,æœ€å¤§ä¸º8ä¸ªå­—èŠ‚.
+//è¿”å›å€¼:0,æˆåŠŸ;
+//		 å…¶ä»–,å¤±è´¥;
 u8 CAN_Send_Msg(u8* msg,u8 len)
 {	
 	u8 mbox;
 	u16 i=0;
 	CanTxMsg TxMessage;
-	TxMessage.StdId=0x12;	 // ±ê×¼±êÊ¶·ûÎª0
-	TxMessage.ExtId=0x12;	 // ÉèÖÃÀ©Õ¹±êÊ¾·û£¨29Î»£©
-	TxMessage.IDE=0;		  // Ê¹ÓÃÀ©Õ¹±êÊ¶·û
-	TxMessage.RTR=0;		  // ÏûÏ¢ÀàĞÍÎªÊı¾İÖ¡£¬Ò»Ö¡8Î»
-	TxMessage.DLC=len;							 // ·¢ËÍÁ½Ö¡ĞÅÏ¢
+	TxMessage.StdId=0x12;	 // æ ‡å‡†æ ‡è¯†ç¬¦ä¸º0
+	TxMessage.ExtId=0x12;	 // è®¾ç½®æ‰©å±•æ ‡ç¤ºç¬¦ï¼ˆ29ä½ï¼‰
+	TxMessage.IDE=0;		  // ä½¿ç”¨æ‰©å±•æ ‡è¯†ç¬¦
+	TxMessage.RTR=0;		  // æ¶ˆæ¯ç±»å‹ä¸ºæ•°æ®å¸§ï¼Œä¸€å¸§8ä½
+	TxMessage.DLC=len;							 // å‘é€ä¸¤å¸§ä¿¡æ¯
 	for(i=0;i<len;i++)
-		TxMessage.Data[i]=msg[i];				 // µÚÒ»Ö¡ĞÅÏ¢          
+		TxMessage.Data[i]=msg[i];				 // ç¬¬ä¸€å¸§ä¿¡æ¯          
 	mbox= CAN_Transmit(CAN1, &TxMessage);   
 	i=0;
-	while((CAN_TransmitStatus(CAN1, mbox)==CAN_TxStatus_Failed)&&(i<0XFFF))i++;	//µÈ´ı·¢ËÍ½áÊø
+	while((CAN_TransmitStatus(CAN1, mbox)==CAN_TxStatus_Failed)&&(i<0XFFF))i++;	//ç­‰å¾…å‘é€ç»“æŸ
 	if(i>=0XFFF)return 1;
 	return 0;		
 }
 
-//can¿Ú½ÓÊÕÊı¾İ²éÑ¯
-//buf:Êı¾İ»º´æÇø;	 
-//·µ»ØÖµ:0,ÎŞÊı¾İ±»ÊÕµ½;
-//		 ÆäËû,½ÓÊÕµÄÊı¾İ³¤¶È;
+//canå£æ¥æ”¶æ•°æ®æŸ¥è¯¢
+//buf:æ•°æ®ç¼“å­˜åŒº;	 
+//è¿”å›å€¼:0,æ— æ•°æ®è¢«æ”¶åˆ°;
+//		 å…¶ä»–,æ¥æ”¶çš„æ•°æ®é•¿åº¦;
 u8 CAN_Receive_Msg(u8 *buf)
 {		   		   
  	u32 i;
 	CanRxMsg RxMessage;
-    if( CAN_MessagePending(CAN1,CAN_FIFO0)==0)return 0;		//Ã»ÓĞ½ÓÊÕµ½Êı¾İ,Ö±½ÓÍË³ö 
-    CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);//¶ÁÈ¡Êı¾İ	
+    if( CAN_MessagePending(CAN1,CAN_FIFO0)==0)return 0;		//æ²¡æœ‰æ¥æ”¶åˆ°æ•°æ®,ç›´æ¥é€€å‡º 
+    CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);//è¯»å–æ•°æ®	
     for(i=0;i<RxMessage.DLC;i++)
     buf[i]=RxMessage.Data[i];  
 	return RxMessage.DLC;	

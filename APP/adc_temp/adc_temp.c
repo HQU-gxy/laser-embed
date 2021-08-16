@@ -2,10 +2,10 @@
 #include "SysTick.h"
 
 /*******************************************************************************
-* º¯ Êı Ãû         : ADC_Temp_Init
-* º¯Êı¹¦ÄÜ		   : ADC_Temp³õÊ¼»¯º¯Êı
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎŞ
+* å‡½ æ•° å         : ADC_Temp_Init
+* å‡½æ•°åŠŸèƒ½		   : ADC_Tempåˆå§‹åŒ–å‡½æ•°
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ— 
 *******************************************************************************/
 void ADC_Temp_Init(void)
 {	
@@ -13,46 +13,46 @@ void ADC_Temp_Init(void)
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1,ENABLE);
 	
-	RCC_ADCCLKConfig(RCC_PCLK2_Div6);   //·ÖÆµÒò×Ó6Ê±ÖÓÎª72M/6=12MHz
+	RCC_ADCCLKConfig(RCC_PCLK2_Div6);   //åˆ†é¢‘å› å­6æ—¶é’Ÿä¸º72M/6=12MHz
 	
-	ADC_TempSensorVrefintCmd(ENABLE);//´ò¿ªADCÄÚ²¿ÎÂ¶È´«¸ĞÆ÷
+	ADC_TempSensorVrefintCmd(ENABLE);//æ‰“å¼€ADCå†…éƒ¨æ¸©åº¦ä¼ æ„Ÿå™¨
 	
-	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;	//ADC¹¤×÷Ä£Ê½:ADC1ºÍADC2¹¤×÷ÔÚ¶ÀÁ¢Ä£Ê½
-	ADC_InitStructure.ADC_ScanConvMode = DISABLE;//·ÇÉ¨ÃèÄ£Ê½	
-	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//¹Ø±ÕÁ¬Ğø×ª»»
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;//½ûÖ¹´¥·¢¼ì²â£¬Ê¹ÓÃÈí¼ş´¥·¢
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//ÓÒ¶ÔÆë	
-	ADC_InitStructure.ADC_NbrOfChannel = 1;	//1¸ö×ª»»ÔÚ¹æÔòĞòÁĞÖĞ Ò²¾ÍÊÇÖ»×ª»»¹æÔòĞòÁĞ1 
-	ADC_Init(ADC1, &ADC_InitStructure);//ADC³õÊ¼»¯
+	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;	//ADCå·¥ä½œæ¨¡å¼:ADC1å’ŒADC2å·¥ä½œåœ¨ç‹¬ç«‹æ¨¡å¼
+	ADC_InitStructure.ADC_ScanConvMode = DISABLE;//éæ‰«ææ¨¡å¼	
+	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//å…³é—­è¿ç»­è½¬æ¢
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;//ç¦æ­¢è§¦å‘æ£€æµ‹ï¼Œä½¿ç”¨è½¯ä»¶è§¦å‘
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//å³å¯¹é½	
+	ADC_InitStructure.ADC_NbrOfChannel = 1;	//1ä¸ªè½¬æ¢åœ¨è§„åˆ™åºåˆ—ä¸­ ä¹Ÿå°±æ˜¯åªè½¬æ¢è§„åˆ™åºåˆ—1 
+	ADC_Init(ADC1, &ADC_InitStructure);//ADCåˆå§‹åŒ–
 	
-	ADC_Cmd(ADC1, ENABLE);//¿ªÆôAD×ª»»Æ÷
+	ADC_Cmd(ADC1, ENABLE);//å¼€å¯ADè½¬æ¢å™¨
 	
-	ADC_ResetCalibration(ADC1);//ÖØÖÃÖ¸¶¨µÄADCµÄĞ£×¼¼Ä´æÆ÷
-	while(ADC_GetResetCalibrationStatus(ADC1));//»ñÈ¡ADCÖØÖÃĞ£×¼¼Ä´æÆ÷µÄ×´Ì¬
+	ADC_ResetCalibration(ADC1);//é‡ç½®æŒ‡å®šçš„ADCçš„æ ¡å‡†å¯„å­˜å™¨
+	while(ADC_GetResetCalibrationStatus(ADC1));//è·å–ADCé‡ç½®æ ¡å‡†å¯„å­˜å™¨çš„çŠ¶æ€
 	
-	ADC_StartCalibration(ADC1);//¿ªÊ¼Ö¸¶¨ADCµÄĞ£×¼×´Ì¬
-	while(ADC_GetCalibrationStatus(ADC1));//»ñÈ¡Ö¸¶¨ADCµÄĞ£×¼³ÌĞò
+	ADC_StartCalibration(ADC1);//å¼€å§‹æŒ‡å®šADCçš„æ ¡å‡†çŠ¶æ€
+	while(ADC_GetCalibrationStatus(ADC1));//è·å–æŒ‡å®šADCçš„æ ¡å‡†ç¨‹åº
 
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Ê¹ÄÜ»òÕßÊ§ÄÜÖ¸¶¨µÄADCµÄÈí¼ş×ª»»Æô¶¯¹¦ÄÜ
+	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//ä½¿èƒ½æˆ–è€…å¤±èƒ½æŒ‡å®šçš„ADCçš„è½¯ä»¶è½¬æ¢å¯åŠ¨åŠŸèƒ½
 }
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Get_ADC_Temp_Value
-* º¯Êı¹¦ÄÜ		   : »ñÈ¡Í¨µÀchµÄ×ª»»Öµ£¬È¡times´Î,È»ºóÆ½¾ù 	
-* Êä    Èë         : ch:Í¨µÀ±àºÅ
-					 times:»ñÈ¡´ÎÊı
-* Êä    ³ö         : Í¨µÀchµÄtimes´Î×ª»»½á¹ûÆ½¾ùÖµ
+* å‡½ æ•° å         : Get_ADC_Temp_Value
+* å‡½æ•°åŠŸèƒ½		   : è·å–é€šé“chçš„è½¬æ¢å€¼ï¼Œå–timesæ¬¡,ç„¶åå¹³å‡ 	
+* è¾“    å…¥         : ch:é€šé“ç¼–å·
+					 times:è·å–æ¬¡æ•°
+* è¾“    å‡º         : é€šé“chçš„timesæ¬¡è½¬æ¢ç»“æœå¹³å‡å€¼
 *******************************************************************************/
 u16 Get_ADC_Temp_Value(u8 ch,u8 times)
 {
 	u32 temp_val=0;
 	u8 t;
-	//ÉèÖÃÖ¸¶¨ADCµÄ¹æÔò×éÍ¨µÀ£¬Ò»¸öĞòÁĞ£¬²ÉÑùÊ±¼ä
-	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5);	//ADC1,ADCÍ¨µÀ,239.5¸öÖÜÆÚ,Ìá¸ß²ÉÑùÊ±¼ä¿ÉÒÔÌá¸ß¾«È·¶È
+	//è®¾ç½®æŒ‡å®šADCçš„è§„åˆ™ç»„é€šé“ï¼Œä¸€ä¸ªåºåˆ—ï¼Œé‡‡æ ·æ—¶é—´
+	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5);	//ADC1,ADCé€šé“,239.5ä¸ªå‘¨æœŸ,æé«˜é‡‡æ ·æ—¶é—´å¯ä»¥æé«˜ç²¾ç¡®åº¦
 	for(t=0;t<times;t++)
 	{
-		ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Ê¹ÄÜÖ¸¶¨µÄADC1µÄÈí¼ş×ª»»Æô¶¯¹¦ÄÜ	
-		while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//µÈ´ı×ª»»½áÊø
+		ADC_SoftwareStartConvCmd(ADC1, ENABLE);//ä½¿èƒ½æŒ‡å®šçš„ADC1çš„è½¯ä»¶è½¬æ¢å¯åŠ¨åŠŸèƒ½	
+		while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//ç­‰å¾…è½¬æ¢ç»“æŸ
 		temp_val+=ADC_GetConversionValue(ADC1);
 		delay_ms(5);
 	}
@@ -60,19 +60,19 @@ u16 Get_ADC_Temp_Value(u8 ch,u8 times)
 } 
 
 /*******************************************************************************
-* º¯ Êı Ãû         : Get_Temperture
-* º¯Êı¹¦ÄÜ		   : »ñÈ¡ÎÂ¶ÈÖµ 	
-* Êä    Èë         : ÎŞ
-* Êä    ³ö         : ÎÂ¶ÈÖµ(À©´óÁË100±¶,µ¥Î»:¡æ)
+* å‡½ æ•° å         : Get_Temperture
+* å‡½æ•°åŠŸèƒ½		   : è·å–æ¸©åº¦å€¼ 	
+* è¾“    å…¥         : æ— 
+* è¾“    å‡º         : æ¸©åº¦å€¼(æ‰©å¤§äº†100å€,å•ä½:â„ƒ)
 *******************************************************************************/
 int Get_Temperture(void)
 {
 	u32 adc_value;
 	int temp;
  	double temperture;
-	adc_value=Get_ADC_Temp_Value(ADC_Channel_16,10);	//¶ÁÈ¡Í¨µÀ16ÄÚ²¿ÎÂ¶È´«¸ĞÆ÷Í¨µÀ,10´ÎÈ¡Æ½¾ù
-	temperture=(float)adc_value*(3.3/4096);		//µçÑ¹Öµ
-	temperture=(1.43-temperture)/0.0043+25; //×ª»»ÎªÎÂ¶ÈÖµ 
-	temp=temperture*100;					//À©´ó100±¶.
+	adc_value=Get_ADC_Temp_Value(ADC_Channel_16,10);	//è¯»å–é€šé“16å†…éƒ¨æ¸©åº¦ä¼ æ„Ÿå™¨é€šé“,10æ¬¡å–å¹³å‡
+	temperture=(float)adc_value*(3.3/4096);		//ç”µå‹å€¼
+	temperture=(1.43-temperture)/0.0043+25; //è½¬æ¢ä¸ºæ¸©åº¦å€¼ 
+	temp=temperture*100;					//æ‰©å¤§100å€.
 	return temp;
 }

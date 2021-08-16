@@ -5,15 +5,15 @@
 
 void SMG_Init()
 {
-	GPIO_InitTypeDef GPIO_InitStructure;  //ÉùÃ÷Ò»¸ö½á¹¹Ìå±äÁ¿£¬ÓÃÀ´³õÊ¼»¯GPIO
-	/* ¿ªÆôGPIOÊ±ÖÓ */
+	GPIO_InitTypeDef GPIO_InitStructure;  //å£°æ˜ä¸€ä¸ªç»“æ„ä½“å˜é‡ï¼Œç”¨æ¥åˆå§‹åŒ–GPIO
+	/* å¼€å¯GPIOæ—¶é’Ÿ */
 	RCC_APB2PeriphClockCmd(SMG_PORT_RCC,ENABLE);
 
 	
-	/*  ÅäÖÃGPIOµÄÄ£Ê½ºÍIO¿Ú */
-	GPIO_InitStructure.GPIO_Pin=SMG_PIN;	  //Ñ¡ÔñÄãÒªÉèÖÃµÄIO¿Ú
+	/*  é…ç½®GPIOçš„æ¨¡å¼å’ŒIOå£ */
+	GPIO_InitStructure.GPIO_Pin=SMG_PIN;	  //é€‰æ‹©ä½ è¦è®¾ç½®çš„IOå£
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
-	GPIO_Init(SMG_PORT,&GPIO_InitStructure);		/* ³õÊ¼»¯GPIO */
+	GPIO_Init(SMG_PORT,&GPIO_InitStructure);		/* åˆå§‹åŒ–GPIO */
 }
 
