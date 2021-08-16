@@ -27,7 +27,7 @@ int main()
 
 //initial
 SysTick_Init(72);
-NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  //ÖĞ¶ÏÓÅÏÈ¼¶·Ö×é ·Ö2×é
+NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  //ä¸­æ–­ä¼˜å…ˆçº§åˆ†ç»„ åˆ†2ç»„
 USART1_Init(115200);
 USART3_Init(115200);
 Hwjs_InitA15();
@@ -72,7 +72,7 @@ ublox_gpsinit();
 //delay_us(50);
 //USART2_printf("$CCCAS,1,5*55\r\n");
 //delay_us(50);
-//USART2_Init(115200);	 //´®¿Ú³õÊ¼»¯Îª9600
+//USART2_Init(115200);	 //ä¸²å£åˆå§‹åŒ–ä¸º9600
 //delay_us(50);
 
 delay_us(50);
@@ -81,7 +81,7 @@ delay_us(50);
 //USART2_printf("%d\r\n",	NRF24L01_Check());
 
 
-	TIM4_Init(10000,360-1);  //¶¨Ê±50ms
+	TIM4_Init(10000,360-1);  //å®šæ—¶50ms
 //Lora jion the net
 
 
