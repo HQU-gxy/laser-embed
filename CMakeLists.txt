@@ -12,7 +12,10 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 #   set(CMAKE_ASM_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
 # endif(UNIX)
 
+# if you're in Windows 
+# cmake . -G "MSYS Makefiles"
 if(WIN32)
+  set(CMAKE_GENERATOR "MSYS Makefiles")
   set(tools "C:/Program Files (x86)/GNU Arm Embedded Toolchain/9 2020-q2-update/bin/")
   set(gcc "gcc.exe")
   set(CROSS_TARGET_TRIPLET "arm-none-eabi-")
