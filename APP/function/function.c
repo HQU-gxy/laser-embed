@@ -173,7 +173,7 @@ char * newMergedData(unsigned char * buffer, int bufferSize){
 
 
 
-void itoa(int num,char *str)
+/* void itoa(int num,char *str)
 {
     while(num!=0)
     {
@@ -183,7 +183,7 @@ void itoa(int num,char *str)
     }
     
     *str='\0';
-}
+} */
 
 
 unsigned char cal_table_high_first(unsigned char value)

@@ -18,8 +18,7 @@ int getDataSize(int bufferSize);
 void mergeData(char* merged, unsigned char* buffer, int bufferSize);
 void printHex(unsigned char * str,int bufferSize);
 char * newMergedData(unsigned char * buffer, int bufferSize);
- u8 reverse_bit8(u8 x);
-void itoa(int num,char *str);
+u8 reverse_bit8(u8 x);
 unsigned char cal_table_high_first(unsigned char value);
 
 #endif

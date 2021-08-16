@@ -3,29 +3,34 @@ cmake_minimum_required (VERSION 3.1)
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
+# Subtitude the linker file to your Chip
 set(linker "STM32F10X.ld")
 
 # https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+
+# CMake can't identify if the OS is WIN32 or UNIX in MSYS Makefiles
 # if(UNIX)
 #   set(CROSS_TARGET_TRIPLET "arm-none-eabi-")
 #   set(CMAKE_C_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
 #   set(CMAKE_ASM_COMPILER ${CROSS_TARGET_TRIPLET}gcc)
 # endif(UNIX)
 
-# if you're in Windows 
+# if you're in Windows please use MSYS Makefiles Generator
 # cmake . -G "MSYS Makefiles"
 if(WIN32)
   set(CMAKE_GENERATOR "MSYS Makefiles")
-  set(tools "C:/Program Files (x86)/GNU Arm Embedded Toolchain/9 2020-q2-update/bin/")
+  set(tools "C:/Program Files (x86)/GNU Arm Embedded Toolchain/9 2020-q2-update")
+  set(tools_bin ${tools}/bin/)
+  set(tools_include ${tools}/arm-none-eabi/include/)
   set(gcc "gcc.exe")
   set(CROSS_TARGET_TRIPLET "arm-none-eabi-")
-  set(CMAKE_C_COMPILER ${tools}${CROSS_TARGET_TRIPLET}${gcc})
-  set(CMAKE_ASM_COMPILER ${tools}${CROSS_TARGET_TRIPLET}${gcc})
+  set(CMAKE_C_COMPILER ${tools_bin}${CROSS_TARGET_TRIPLET}${gcc})
+  set(CMAKE_ASM_COMPILER ${tools_bin}${CROSS_TARGET_TRIPLET}${gcc})
 endif(WIN32)
 
 # Project Infomation
-project(Target C ASM)
+project(laser-embed C ASM)
 
 
 # CC AR LD AS
@@ -41,6 +46,7 @@ set (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_SHARED_LIBRARY_LINK_C_FLAGS)
 
 # Set include path
+include_directories (${tools_include})
 include_directories (User)
 include_directories (Libraries/CMSIS)
 include_directories (Libraries/STM32F10x_StdPeriph_Driver/inc)
@@ -53,7 +59,6 @@ include_directories (APP/exti)
 include_directories (APP/time)
 include_directories (APP/pwm)
 include_directories (APP/iwdg)
-include_directories (APP/wwdg)
 include_directories (APP/input)
 include_directories (APP/touch_key)
 include_directories (APP/wkup)
@@ -125,7 +130,7 @@ set (SRC_FILE40 Public/usart.c)
 
 
 # CFLAGS
-set (CMAKE_C_FLAGS "-g -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes -fno-common -ffunction-sections -fdata-sections -MD -Wall -Wundef -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "c compiler flags")
+set (CMAKE_C_FLAGS "-g -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls -Wmissing-prototypes -fno-common -ffunction-sections -fdata-sections -MD -Wall -Wundef -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "c compiler flags")
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -D STM32F10X_MD  -D USE_STDPERIPH_DRIVER ")
 
 # CXXFLAGS
@@ -135,7 +140,7 @@ set (CMAKE_CXX_FLAGS "-Wextra -Wshadow -Wredundant-decls  -Weffc++ -fno-common -
 set (CMAKE_ASM_FLAGS "-g -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "asm compiler flags")
 
 # LDFLAGS
-set (CMAKE_EXE_LINKER_FLAGS "-g -Wl,--gc-sections -Wl,-Map=Target 1.map -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "executable linker flags")
+set (CMAKE_EXE_LINKER_FLAGS "-g -Wl,--gc-sections -Wl,-Map=${EXECUTABLE_OUTPUT_PATH}/output.map -mthumb -mcpu=cortex-m3 " CACHE INTERNAL "executable linker flags")
 set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${CMAKE_SOURCE_DIR}/${linker} -L ")
 
 
