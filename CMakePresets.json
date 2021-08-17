@@ -2,7 +2,7 @@
   "version": 2,
   "configurePresets": [
     {
-      "name": "stm32-default",
+      "name": "Stm32",
       "displayName": "Stm32",
       "description": "Target is a fucking stm32 board",
       "generator": "MSYS Makefiles",
