@@ -115,26 +115,58 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 # "--specs=nosys.specs" "--specs=nano.specs" warning: cannot find entry symbol
 # Reset_Handler; defaulting to 08000000
 set(CMAKE_C_FLAGS
-    "--specs=nosys.specs -g -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls -Wmissing-prototypes -fno-common -ffunction-sections -fdata-sections -MD -Wall -Wundef -mthumb -mcpu=${mcu} "
+    "--specs=nosys.specs \
+    -g \
+    -Wextra \
+    -Wshadow \
+    -Wimplicit-function-declaration \
+    -Wredundant-decls \
+    -Wmissing-prototypes \
+    -fno-common -ffunction-sections \
+    -fdata-sections \
+    -MD \
+    -Wall \
+    -Wundef \
+    -mthumb \
+    -mcpu=${mcu}"
     CACHE INTERNAL "c compiler flags")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D STM32F10X_HD  -D USE_STDPERIPH_DRIVER")
+set(CMAKE_C_FLAGS
+    "${CMAKE_C_FLAGS} \
+-D STM32F10X_HD  \
+-D USE_STDPERIPH_DRIVER")
 
 # CXXFLAGS
 set(CMAKE_CXX_FLAGS
-    "-Wextra -Wshadow -Wredundant-decls  -Weffc++ -fno-common -ffunction-sections -fdata-sections -MD -Wall -Wundef -mthumb -mcpu=${mcu} "
+    "-Wextra \
+    -Wshadow \
+    -Wredundant-decls  \
+    -Weffc++ \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -MD \
+    -Wall \
+    -Wundef \
+    -mthumb \
+    -mcpu=${mcu}"
     CACHE INTERNAL "cxx compiler flags")
 
 # ASMFLAGS
 set(CMAKE_ASM_FLAGS
-    "-g -mthumb -mcpu=${mcu} "
+    "-g \
+    -mthumb \
+    -mcpu=${mcu} "
     CACHE INTERNAL "asm compiler flags")
 
 # LDFLAGS
 set(CMAKE_EXE_LINKER_FLAGS
-    "-g -Wl,--gc-sections -Wl,-Map=${EXECUTABLE_OUTPUT_PATH}/output.map -mthumb -mcpu=${mcu} "
+    "-g \
+    -Wl,--gc-sections \
+    -Wl,-Map=${EXECUTABLE_OUTPUT_PATH}/output.map \
+    -mthumb -mcpu=${mcu}"
     CACHE INTERNAL "executable linker flags")
-set(CMAKE_EXE_LINKER_FLAGS
-    "${CMAKE_EXE_LINKER_FLAGS} -T ${CMAKE_SOURCE_DIR}/${linker}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} \
+    -T ${CMAKE_SOURCE_DIR}/${linker}")
 
 # YOU MUST USE file insted of set function inorder to include a file
 file(GLOB_RECURSE START_FILE Libraries/CMSIS/startup_stm32f10x_hd.s
