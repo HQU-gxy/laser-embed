@@ -1,5 +1,5 @@
 # CMake minimum version
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.11)
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
@@ -46,44 +46,28 @@ set (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 
+# We do not recommend using GLOB to collect a list of source files from your source tree
+# Code from 
+# https://stackoverflow.com/questions/31004421/does-cmake-support-include-directories-recursively
+# https://stackoverflow.com/questions/17653738/recursive-cmake-search-for-header-and-source-files
+MACRO(HEADER_DIRECTORIES return_list)
+    FILE(GLOB_RECURSE new_list *.h)
+    SET(dir_list "")
+    FOREACH(file_path ${new_list})
+        GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+        SET(dir_list ${dir_list} ${dir_path})
+    ENDFOREACH()
+    LIST(REMOVE_DUPLICATES dir_list)
+    SET(${return_list} ${dir_list})
+ENDMACRO()
+
+HEADER_DIRECTORIES(header_dir_list)
+
+list(LENGTH header_dir_list header_dir_list_count)
+message(STATUS "[INFO] Found ${header_dir_list_count} header directories.")
 
 # Set include path
-include_directories ( User
-                      Libraries/CMSIS
-                      Libraries/STM32F10x_StdPeriph_Driver/inc
-                      APP/led
-                      Public
-                      APP/beep
-                      APP/smg
-                      APP/key
-                      APP/exti
-                      APP/time
-                      APP/pwm
-                      APP/iwdg
-                      APP/input
-                      APP/touch_key
-                      APP/wkup
-                      APP/adc
-                      APP/adc_temp
-                      APP/dac
-                      APP/pwm_dac
-                      APP/dma
-                      APP/rtc
-                      APP/24Cxx
-                      APP/iic
-                      APP/ds18b20
-                      APP/hwjs
-                      APP/rs485
-                      APP/can
-                      APP/tftlcd
-                      APP/hwjs
-                      APP/hexify
-                      APP/nrf24l01
-                      APP/spi
-                      APP/input
-                      APP/gps
-                      APP/function
-                      APP/module)
+include_directories (${header_dir_list})
 
 # The need build source path and build all files
 # asm file must be capital S
@@ -117,7 +101,7 @@ file(GLOB_RECURSE STD_DRIVER_SRC Libraries/STM32F10x_StdPeriph_Driver/*.c)
 add_executable (${CMAKE_PROJECT_NAME}.elf 
                 ${START_FILE} 
                 ${USER_SRC}
-                ${STD_DRIVER_SRC}
+                ${STD_DRIVER_SRC} # Maybe you should select them manually
                 Libraries/CMSIS/system_stm32f10x.c
                 APP/led/led.c
                 APP/tftlcd/tftlcd.c
