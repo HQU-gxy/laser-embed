@@ -119,6 +119,9 @@ find ./ -name "*.c" -o -name "*.cpp" -o -name "*.h" -type f | xargs enca -L chin
 - [根据Keil项目文件修改成tiny的Makefile_YearIllusion的博客-CSDN博客](https://blog.csdn.net/YearIllusion/article/details/102415237?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control)
 - [使用makefile替换Keil进行编译_zfx277266940的专栏-CSDN博客](https://blog.csdn.net/zfx277266940/article/details/39269045)
 - [使用GCC编译STM32工程 | 码农家园](https://www.codenong.com/cs106677907/)
+- [STM32 CMake 模板 | St.Lee的个人站](https://www.stlee.tech/2021/01/23/STM32-CMakeLists-txt-%E6%A8%A1%E6%9D%BF/)
+- [cmake构建stm32工程 |](https://zhen8838.github.io/2018/08/14/cmakestm32/)
+- [STM32 & Clion - 台部落](https://www.twblogs.net/a/5b8cf6a02b7177188337a978)
 
 ### Start up code and linker script
 
