@@ -81,6 +81,12 @@ See [µVision User's Guide Preprocessor Symbols](https://www.keil.com/support/ma
 
 See [µVision User's Guide: Command Line](https://www.keil.com/support/man/docs/uv4/uv4_commandline.htm). Also check this gist: [Makefile for building keil projects](https://gist.github.com/samvasko/10017340).
 
+#### ARM Compiler
+
+- [embedded - Which one is better, gcc or armcc for NEON optimizations? - Stack Overflow](https://stackoverflow.com/questions/12577572/which-one-is-better-gcc-or-armcc-for-neon-optimizations)
+- [[CMake] Correct way to use ARMCC (Files in Modules/Compiler/ARMCC*)](https://cmake.org/pipermail/cmake/2016-September/064261.html)
+- [Compiler User Guide: ARM Compiler v5.06 for µVision armcc User Guide](https://www.keil.com/support/man/docs/armcc/)
+- [Arm Compiler | Arm Compiler 6 Downloads – Arm Developer](https://developer.arm.com/tools-and-software/embedded/arm-compiler/downloads/version-6)
 
 ### Encoding from GBK to UTF-8
 
@@ -113,3 +119,13 @@ find ./ -name "*.c" -o -name "*.cpp" -o -name "*.h" -type f | xargs enca -L chin
 - [根据Keil项目文件修改成tiny的Makefile_YearIllusion的博客-CSDN博客](https://blog.csdn.net/YearIllusion/article/details/102415237?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control)
 - [使用makefile替换Keil进行编译_zfx277266940的专栏-CSDN博客](https://blog.csdn.net/zfx277266940/article/details/39269045)
 - [使用GCC编译STM32工程 | 码农家园](https://www.codenong.com/cs106677907/)
+
+### Start up code and linker script
+
+- [µVision User's Guide: Configure Startup Code](https://www.keil.com/support/man/docs/uv4/uv4_ca_config_start_code.htm)
+- [startup files in Keil - Keil forum - Software Tools - Arm Community](https://community.arm.com/developer/tools-software/tools/f/keil-forum/29985/startup-files-in-keil)
+- [From makefile to Cmake - stm32 - Stack Overflow](https://stackoverflow.com/questions/57348819/from-makefile-to-cmake-stm32)
+- [“Bare Metal” STM32 Programming (Part 2): Making it to ‘Main’ – Vivonomicon's Blog](https://vivonomicon.com/2018/04/20/bare-metal-stm32-programming-part-2-making-it-to-main/)
+- [From Zero to main(): Demystifying Firmware Linker Scripts | Interrupt](https://interrupt.memfault.com/blog/how-to-write-linker-scripts-for-firmware)
+- [GNU LD 手冊略讀 (0): 目錄和簡介 - My code works, I don’t know why.](http://wen00072.github.io/blog/2014/12/14/study-on-the-linker-script-0-table-of-contents/)
+- [gcc - why need linker script and startup code? - Stack Overflow](https://stackoverflow.com/questions/41365110/why-need-linker-script-and-startup-code)
