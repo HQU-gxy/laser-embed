@@ -17,9 +17,11 @@ if(UNIX)
 endif(UNIX)
 
 # if you're in Windows please use MSYS Makefiles Generator
+# Maybe MinGW Makefiles Generator is also works
 # cmake . -G "MSYS Makefiles"
 if(WIN32)
-  set(CMAKE_GENERATOR "MSYS Makefiles")
+  # Force Windows to use MSYS Makefiles Generator
+  set(CMAKE_GENERATOR "MSYS Makefiles" CACHE INTERNAL "" FORCE)
   set(tools "C:/Program Files (x86)/GNU Arm Embedded Toolchain/9 2020-q2-update")
   set(tools_bin ${tools}/bin/)
   set(tools_include ${tools}/arm-none-eabi/include/)
